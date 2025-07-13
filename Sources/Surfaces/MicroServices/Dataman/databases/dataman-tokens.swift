@@ -1,14 +1,14 @@
 import Foundation
 
 public struct TokensTokenRow {
-    public let id: UUID
+    public let id: Int
     public let hashed: String
     public let expiresAt: Date
     public let usageCount: Int
     public let maxUsages: Int
     
     public init(
-        id: UUID,
+        id: Int,
         hashed: String,
         expiresAt: Date,
         usageCount: Int,
