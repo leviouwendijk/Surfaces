@@ -1,7 +1,6 @@
 import Foundation
 import plate
 import Structures
-import Structures
 import CryptoKit
 
 public struct CaptcherRequest: Codable, Sendable {
@@ -28,7 +27,10 @@ public struct CaptcherRequest: Codable, Sendable {
 
 
 extension CaptcherRequest {
-    public func datamanRequest() -> DatamanRequest {
+    public func datamanRequest() throws -> DatamanRequest {
+        let table = "captcha_tokens"
+        let fieldTypes = try PSQLFieldTypeRegistry.table(named: table)
+
         switch operation {
         case .fetch:
             return DatamanRequest(
@@ -39,14 +41,7 @@ extension CaptcherRequest {
                     "ip_address": .string(clientIp),
                     "invalidated": .bool(false)
                 ]),
-                fieldTypes: [
-                    "id":           .uuid,
-                    "hashed_token": .text,
-                    "expires_at":   .timestamptz,
-                    "usage_count":  .integer,
-                    "max_usages":   .integer,
-                    "created_at":   .timestamptz
-                ],
+                fieldTypes: fieldTypes,
                 order: .object([
                     "created_at": .string("DESC")
                 ]),
@@ -70,12 +65,7 @@ extension CaptcherRequest {
                     "max_usages":   .int(10),
                     "ip_address":   .string(clientIp)
                 ]),
-                fieldTypes: [
-                    "hashed_token": .text,
-                    "expires_at":   .timestamptz,
-                    "max_usages":   .integer,
-                    "ip_address":   .text
-                ]
+                fieldTypes: fieldTypes
             )
 
         case .validate:
