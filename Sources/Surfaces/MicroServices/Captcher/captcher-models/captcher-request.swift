@@ -1,6 +1,6 @@
 import Foundation
 import plate
-import Interfaces
+import Structures
 import Structures
 import CryptoKit
 
@@ -9,17 +9,20 @@ public struct CaptcherRequest: Codable, Sendable {
     public let clientIp: String
     public let jwtToken: String?      // only for .validate
     public let rawToken: String?      // only for .create
+    public let fieldTypes: [String: PSQLType]?
     
     public init(
         operation: CaptcherOperation,
         clientIp: String,
         jwtToken: String? = nil,
-        rawToken: String? = nil
+        rawToken: String? = nil,
+        fieldTypes: [String: PSQLType]? = nil
     ) {
         self.operation = operation
         self.clientIp = clientIp
         self.jwtToken = jwtToken
         self.rawToken = rawToken
+        self.fieldTypes = fieldTypes
     }
 }
 
@@ -39,7 +42,7 @@ extension CaptcherRequest {
                 order: .object([
                     "created_at": .string("DESC")
                 ]),
-                limit: 1
+                limit: 1,
             )
 
         case .create:
@@ -58,7 +61,13 @@ extension CaptcherRequest {
                     "expires_at":   .string(expiry),
                     "max_usages":   .int(10),
                     "ip_address":   .string(clientIp)
-                ])
+                ]),
+                fieldTypes: [
+                    "hashed_token": .text,
+                    "expires_at":   .timestamptz,
+                    "max_usages":   .integer,
+                    "ip_address":   .text
+                ]
             )
 
         case .validate:
