@@ -48,3 +48,7 @@ public struct DatamanResponse: Codable, Sendable {
     }
 }
 
+public enum DatabaseKey: String, CaseIterable {
+    case tokens
+    case leads
+}
