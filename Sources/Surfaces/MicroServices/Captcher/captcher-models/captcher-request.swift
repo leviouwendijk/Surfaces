@@ -39,10 +39,18 @@ extension CaptcherRequest {
                     "ip_address": .string(clientIp),
                     "invalidated": .bool(false)
                 ]),
+                fieldTypes: [
+                    "id":           .uuid,
+                    "hashed_token": .text,
+                    "expires_at":   .timestamptz,
+                    "usage_count":  .integer,
+                    "max_usages":   .integer,
+                    "created_at":   .timestamptz
+                ],
                 order: .object([
                     "created_at": .string("DESC")
                 ]),
-                limit: 1,
+                limit: 1
             )
 
         case .create:
