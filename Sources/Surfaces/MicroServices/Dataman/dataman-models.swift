@@ -1,7 +1,8 @@
 import Foundation
 import Structures
+import Extensions
 
-public enum DatamanOperation: String, Codable, Sendable {
+public enum DatamanOperation: String, Codable, Sendable, StringParsableEnum {
     case create, fetch, update, delete
 }
 
@@ -48,7 +49,7 @@ public struct DatamanResponse: Codable, Sendable {
     }
 }
 
-public enum DatabaseKey: String, CaseIterable {
+public enum DatabaseKey: String, CaseIterable, StringParsableEnum {
     case tokens
     case leads
 }
