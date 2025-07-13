@@ -1,5 +1,5 @@
 import Foundation
-import Interfaces
+import Structures
 
 public typealias TemplateVariables = [String: JSONValue]
 
