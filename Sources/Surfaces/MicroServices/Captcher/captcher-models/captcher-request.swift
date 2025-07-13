@@ -82,10 +82,4 @@ extension CaptcherRequest {
             fatalError("Validation uses JWT + DB‐side logic, not a direct DatamanRequest")
         }
     }
-    
-    private func hash(_ raw: String) -> String {
-        let data = Data(raw.utf8)
-        let digest = SHA256.hash(data: data)
-        return digest.compactMap { String(format: "%02x", $0) }.joined()
-    }
 }
