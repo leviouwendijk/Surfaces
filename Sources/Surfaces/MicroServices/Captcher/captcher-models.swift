@@ -1,5 +1,7 @@
 import Foundation
+import plate
 import Interfaces
+import Structures
 import CryptoKit
 
 public struct CaptcherValidateBody: Codable, Sendable {
@@ -86,18 +88,18 @@ extension CaptcherRequest {
             guard let raw = rawToken else {
                 fatalError("Must supply rawToken for .create")
             }
-            let expiry = ISO8601DateFormatter().string(
-                from: Date().addingTimeInterval(15 * 60)
-            )
+
+            let expiryDate = Date() + (15).minutes 
+            let expiry = expiryDate.postgresTimestamp
             return DatamanRequest(
                 operation: .create,
                 database: "tokens",
                 table: "captcha_tokens",
                 values: .object([
                     "hashed_token": .string(hash(raw)),
-                    "expires_at": .string(expiry),
-                    "max_usages": .int(10),
-                    "ip_address": .string(clientIp)
+                    "expires_at":   .string(expiry),
+                    "max_usages":   .int(10),
+                    "ip_address":   .string(clientIp)
                 ])
             )
 
