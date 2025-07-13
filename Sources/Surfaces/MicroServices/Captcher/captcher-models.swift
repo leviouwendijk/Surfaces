@@ -2,6 +2,10 @@ import Foundation
 import Interfaces
 import CryptoKit
 
+public struct CaptcherValidateBody: Codable, Sendable {
+    public let token: String
+}
+
 public enum CaptcherTokenType: String, Codable, Sendable {
     case new
     case reuse
