@@ -4,30 +4,6 @@ import Interfaces
 import Structures
 import CryptoKit
 
-public struct CaptcherValidateBody: Codable, Sendable {
-    public let token: String
-}
-
-public enum CaptcherTokenType: String, Codable, Sendable {
-    case new
-    case reuse
-
-    public var codename: String {
-        switch self {
-        case .new:
-            "N"
-        case .reuse:
-            "RE-U"
-        }
-    }
-}
-
-public enum CaptcherOperation: String, Codable, Sendable {
-    case fetch
-    case validate
-    case create
-}
-
 public struct CaptcherRequest: Codable, Sendable {
     public let operation: CaptcherOperation
     public let clientIp: String
@@ -47,24 +23,6 @@ public struct CaptcherRequest: Codable, Sendable {
     }
 }
 
-public struct CaptcherResponse: Codable, Sendable {
-    public let success: Bool
-    public let token: String?
-    public let type: CaptcherTokenType? 
-    public let error: String?
-    
-    public init(
-        success: Bool,
-        token: String? = nil,
-        type: CaptcherTokenType? = nil,
-        error: String? = nil
-    ) {
-        self.success = success
-        self.token = token
-        self.type = type
-        self.error = error
-    }
-}
 
 extension CaptcherRequest {
     public func datamanRequest() -> DatamanRequest {
@@ -112,25 +70,5 @@ extension CaptcherRequest {
         let data = Data(raw.utf8)
         let digest = SHA256.hash(data: data)
         return digest.compactMap { String(format: "%02x", $0) }.joined()
-    }
-}
-
-public enum CaptcherValidationRejection: String, Codable, Sendable {
-    case signatureInvalid
-    case jwtExpired
-    case ipMismatch
-    case notFound
-    case dbExpired
-    case usageExceeded
-    case unknown
-}
-
-public struct CaptcherValidationResult: Codable, Sendable {
-    public let success: Bool
-    public let reason:   CaptcherValidationRejection?
-
-    public init(success: Bool, reason: CaptcherValidationRejection? = nil) {
-        self.success = success
-        self.reason   = reason
     }
 }
