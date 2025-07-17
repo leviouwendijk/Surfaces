@@ -1,0 +1,54 @@
+import Foundation
+
+public enum TemplateConfigurationError: Error, LocalizedError {
+    case notFound(path: String)
+    case unreadable(path: String, underlying: Error)
+    case invalidJSON(path: String, underlying: Error)
+
+    public var errorDescription: String? {
+        switch self {
+        case .notFound(let path):
+            return "Config file not found at path: \(path)"
+        case .unreadable(let path, let underlying):
+            return "Couldn’t read config at \(path): \(underlying.localizedDescription)"
+        case .invalidJSON(let path, let underlying):
+            return "Invalid JSON in config at \(path): \(underlying.localizedDescription)"
+        }
+    }
+}
+
+public protocol TemplaterConfigurationLoading {
+    func loadConfig(for templatePath: TemplaterTemplatePath) throws -> TemplaterTemplateConfiguration
+}
+
+public struct TemplaterConfigurationLoader: TemplaterConfigurationLoading {
+    public let baseURL: URL
+
+    public init(baseURL: URL) {
+        self.baseURL = baseURL
+    }
+
+    public func loadConfig(for templatePath: TemplaterTemplatePath) throws -> TemplaterTemplateConfiguration {
+        let jsonFileName = templatePath.configFile
+        let fileURL = baseURL.appendingPathComponent(jsonFileName)
+
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            throw TemplateConfigurationError.notFound(path: fileURL.path)
+        }
+
+        let rawData: Data
+
+        do {
+            rawData = try Data(contentsOf: fileURL)
+        } catch {
+            throw TemplateConfigurationError.unreadable(path: fileURL.path, underlying: error)
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(TemplaterTemplateConfiguration.self, from: rawData)
+        } catch {
+            throw TemplateConfigurationError.invalidJSON(path: fileURL.path, underlying: error)
+        }
+    }
+}

@@ -1,13 +1,41 @@
 import Foundation
 
-public protocol TemplateProvider {
-    func fetchTemplate(category: String, name: String) throws -> String
+public enum TemplateError: Error, LocalizedError {
+    case notFound(path: String)
+    case unreadable(path: String, underlying: Error)
+
+    public var errorDescription: String? {
+        switch self {
+        case let .notFound(path):
+            return "Template file not found at path: \(path)"
+        case let .unreadable(path, underlying):
+            return "Couldn’t read template at \(path): \(underlying.localizedDescription)"
+        }
+    }
 }
 
-public struct FileSystemTemplateProvider: TemplateProvider {
-    public let basePath: String // e.g. "/templates/"
-    public func fetchTemplate(category: String, name: String) throws -> String {
-        let path = "\(basePath)/\(category)/\(name).html"
-        return try String(contentsOfFile: path, encoding: .utf8)
+public protocol TemplaterTemplateProviding {
+    func fetchTemplate(at templatePath: TemplaterTemplatePath) throws -> String
+}
+
+public struct TemplaterTemplateProvider: TemplaterTemplateProviding {
+    public let baseURL: URL
+
+    public init(baseURL: URL) {
+        self.baseURL = baseURL
+    }
+
+    public func fetchTemplate(at templatePath: TemplaterTemplatePath) throws -> String {
+        let fileURL = baseURL.appendingPathComponent(templatePath.fileName)
+
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            throw TemplateError.notFound(path: fileURL.path)
+        }
+
+        do {
+            return try String(contentsOf: fileURL, encoding: .utf8)
+        } catch {
+            throw TemplateError.unreadable(path: fileURL.path, underlying: error)
+        }
     }
 }

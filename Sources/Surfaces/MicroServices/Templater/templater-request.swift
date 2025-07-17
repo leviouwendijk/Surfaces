@@ -1,15 +1,21 @@
 import Foundation
 import Structures
+import plate
 
-public typealias TemplateVariables = [String: JSONValue]
+public typealias TemplaterTemplateVariables = [String: JSONValue]
 
-public struct TemplateRenderRequest: Codable, Sendable {
-    public let category: String
-    public let name: String
-    public let variables: TemplateVariables
-}
-
-public struct TemplateRenderResponse: Codable, Sendable {
-    public let success: Bool
-    public let html: String
+public struct TemplaterRenderRequest: Codable, Sendable {
+    public let template: TemplaterTemplatePath
+    public let variables:  TemplaterTemplateVariables
+    public let returning:  DocumentExtensionType
+    
+    public init(
+        template: TemplaterTemplatePath,
+        variables: TemplaterTemplateVariables,
+        returning: DocumentExtensionType
+    ) {
+        self.template = template
+        self.variables = variables
+        self.returning = returning
+    }
 }
