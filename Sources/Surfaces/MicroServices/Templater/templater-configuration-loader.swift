@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TemplateConfigurationError: Error, LocalizedError {
+public enum TemplateConfigurationError: Error, LocalizedError, Sendable {
     case notFound(path: String)
     case unreadable(path: String, underlying: Error)
     case invalidJSON(path: String, underlying: Error)
@@ -17,11 +17,11 @@ public enum TemplateConfigurationError: Error, LocalizedError {
     }
 }
 
-public protocol TemplaterConfigurationLoading {
+public protocol TemplaterConfigurationLoading: Sendable {
     func loadConfig(for templatePath: TemplaterTemplatePath) throws -> TemplaterTemplateConfiguration
 }
 
-public struct TemplaterConfigurationLoader: TemplaterConfigurationLoading {
+public struct TemplaterConfigurationLoader: TemplaterConfigurationLoading, Sendable {
     public let baseURL: URL
 
     public init(baseURL: URL) {

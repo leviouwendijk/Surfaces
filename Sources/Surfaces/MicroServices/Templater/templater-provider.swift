@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TemplateError: Error, LocalizedError {
+public enum TemplateError: Error, LocalizedError, Sendable {
     case notFound(path: String)
     case unreadable(path: String, underlying: Error)
 
@@ -14,11 +14,11 @@ public enum TemplateError: Error, LocalizedError {
     }
 }
 
-public protocol TemplaterTemplateProviding {
+public protocol TemplaterTemplateProviding: Sendable {
     func fetchTemplate(at templatePath: TemplaterTemplatePath) throws -> String
 }
 
-public struct TemplaterTemplateProvider: TemplaterTemplateProviding {
+public struct TemplaterTemplateProvider: TemplaterTemplateProviding, Sendable {
     public let baseURL: URL
 
     public init(baseURL: URL) {
