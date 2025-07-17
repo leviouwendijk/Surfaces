@@ -1,4 +1,5 @@
 import Foundation
+import plate
 
 public enum TemplateError: Error, LocalizedError, Sendable {
     case notFound(path: String)
@@ -21,21 +22,43 @@ public protocol TemplaterTemplateProviding: Sendable {
 public struct TemplaterTemplateProvider: TemplaterTemplateProviding, Sendable {
     public let baseURL: URL
 
+    private static let candidateExtensions: [DocumentExtensionType] = [
+        .html, .txt, .css, .rtf, .docx
+    ]
+
     public init(baseURL: URL) {
         self.baseURL = baseURL
     }
 
-    public func fetchTemplate(at templatePath: TemplaterTemplatePath) throws -> String {
-        let fileURL = baseURL.appendingPathComponent(templatePath.fileName)
+    public func fetchTemplate(
+            at templatePath: TemplaterTemplatePath
+    ) throws -> String {
+        let fm = FileManager.default
 
-        guard FileManager.default.fileExists(atPath: fileURL.path) else {
-            throw TemplateError.notFound(path: fileURL.path)
+        for ext in Self.candidateExtensions {
+            let fileName = templatePath.basePath + ext.dotPrefixed
+            let fileURL  = baseURL.appendingPathComponent(fileName)
+
+            if fm.fileExists(atPath: fileURL.path) {
+                do {
+                    let str = try String(contentsOf: fileURL, encoding: .utf8)
+                    return str
+                } catch {
+                    throw TemplateError.unreadable(path: fileURL.path, underlying: error)
+                }
+            }
         }
 
-        do {
-            return try String(contentsOf: fileURL, encoding: .utf8)
-        } catch {
-            throw TemplateError.unreadable(path: fileURL.path, underlying: error)
-        }
+        let tried = Self.candidateExtensions
+        .map(\.dotPrefixed)
+        .joined(separator: ", ")
+
+        let missingPath = baseURL
+        .appendingPathComponent(templatePath.basePath)
+        .path
+
+        throw TemplateError.notFound(
+            path: "\(missingPath).(\(tried))"
+        )
     }
 }

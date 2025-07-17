@@ -1,4 +1,5 @@
 import Foundation
+import plate
 
 public enum TemplateConfigurationError: Error, LocalizedError, Sendable {
     case notFound(path: String)
@@ -29,8 +30,8 @@ public struct TemplaterConfigurationLoader: TemplaterConfigurationLoading, Senda
     }
 
     public func loadConfig(for templatePath: TemplaterTemplatePath) throws -> TemplaterTemplateConfiguration {
-        let jsonFileName = templatePath.configFile
-        let fileURL = baseURL.appendingPathComponent(jsonFileName)
+        let jsonPath = templatePath.basePath + DocumentExtensionType.json.rawValue
+        let fileURL = URL(filePath: jsonPath)
 
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
             throw TemplateConfigurationError.notFound(path: fileURL.path)

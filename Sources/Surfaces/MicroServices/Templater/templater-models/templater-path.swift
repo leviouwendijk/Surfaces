@@ -49,7 +49,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
     public let designation: TemplaterDesignation
     public let variant: TemplaterVariant
     public let language: LanguageSpecifier
-    public let document: DocumentExtensionType
+    // public let document: DocumentExtensionType
     
     public init(
         platform: TemplaterPlatform,
@@ -58,7 +58,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         designation: TemplaterDesignation,
         variant: TemplaterVariant,
         language: LanguageSpecifier,
-        document: DocumentExtensionType
+        // document: DocumentExtensionType
     ) {
         self.platform = platform
         self.group = group
@@ -66,7 +66,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         self.designation = designation
         self.variant = variant
         self.language = language
-        self.document = document
+        // self.document = document
     }
 
     public var basePath: String {
@@ -80,11 +80,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         .joined(separator: "/")
     }
 
-    public var fileName: String {
-        basePath + document.dotPrefixed
-    }
-
-    public var configFile: String {
-        basePath + DocumentExtensionType.json.dotPrefixed
-    }
+    // public var configFile: String {
+    //     basePath + DocumentExtensionType.json.dotPrefixed
+    // }
 }
