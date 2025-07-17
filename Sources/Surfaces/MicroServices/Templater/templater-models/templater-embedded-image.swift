@@ -45,35 +45,11 @@ public enum TemplaterImageWidthSetting: String, RawRepresentable, Sendable, Stri
     }
 }
 
-public func injectCSS(
-    into html: String,
-    platform: TemplaterPlatform,
-    resources: URL
-) throws -> String {
-    let cssURL = resources
-        .appendingPathComponent("Templates")
-        .appendingPathComponent(platform.rawValue)
-        .appendingPathComponent("styles.css")
-    
-    let styles = try String(contentsOf: cssURL)   
-
-    if let headRange = html.range(of: #"<head[^>]*>"#, options: .regularExpression) {
-        var result = html
-        result.replaceSubrange(
-            headRange,
-            with: "\(html[headRange])\n<style>\(styles)</style>"
-        )
-        return result
-    } else {
-        return "<style>\(styles)</style>\n" + html
-    }
-}
-
 public func embedImages(
     in html: String,
     imageDir: URL,
     widths: [String: Int]? = nil
-) throws -> String {
+) -> String {
     let pattern = #"<img\s+src=\"([^\"]+)\"([^>]*)>"#
     guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
         return html
@@ -106,9 +82,14 @@ public func embedImages(
         let mime = ext == "jpg" ? "image/jpeg" : "image/\(ext)"
         let b64   = data.base64EncodedString()
 
-        let setting = try TemplaterImageWidthSetting.parse(from: imageName)
-        let width =  try setting.width()
-        let widthAttribute = " width=\"\(width)\""
+        let widthAttribute: String
+        do {
+            let setting = try TemplaterImageWidthSetting.parse(from: imageName)
+            let width =  try setting.width()
+            widthAttribute = " width=\"\(width)\""
+        } catch {
+            widthAttribute = ""
+        }
 
         let cleaned = attrs.strippingHtmlWidthAttributes()
 
