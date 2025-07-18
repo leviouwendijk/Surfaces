@@ -27,22 +27,21 @@ public enum TemplaterType: String, RawRepresentable, Codable, Sendable {
 }
 
 public enum TemplaterVariant: String, RawRepresentable, Codable, Sendable {
-    case base
-    case expanded
-    case short
+    case base // regular?
+    case expanded // extended?
+    case short // simple?
+    case training
 }
-
 
 // example directory
 // ..Resources/<platform>/<group>/<type>/<variant>/<language>.html <-- containes raw text with {{placeholders}}
 // .............................................../<language>.json  <-- contains required variables + subject with any placeholders
 
 public struct TemplaterTemplatePath: Codable, Sendable {
-    public let platform: TemplaterPlatform
-    public let group: TemplaterGroup
-    public let type: TemplaterType
-    // public let designation: TemplaterDesignation
-    public let variant: TemplaterVariant
+    public let platform: TemplaterPlatform // document / mail
+    public let group: TemplaterGroup // billing / appointment
+    public let type: TemplaterType // invoice / confirmation
+    public let variant: TemplaterVariant // base, training, particulars
     public let language: LanguageSpecifier
     // public let document: DocumentExtensionType
     
