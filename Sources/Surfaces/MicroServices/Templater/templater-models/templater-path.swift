@@ -2,11 +2,6 @@ import Foundation
 import Structures
 import plate
 
-public enum TemplaterDesignation: String, RawRepresentable, Codable, Sendable {
-    case `internal`
-    case `public`
-}
-
 public enum TemplaterPlatform: String, RawRepresentable, Codable, Sendable {
     case mail
     case document
@@ -46,7 +41,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
     public let platform: TemplaterPlatform
     public let group: TemplaterGroup
     public let type: TemplaterType
-    public let designation: TemplaterDesignation
+    // public let designation: TemplaterDesignation
     public let variant: TemplaterVariant
     public let language: LanguageSpecifier
     // public let document: DocumentExtensionType
@@ -55,7 +50,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         platform: TemplaterPlatform,
         group: TemplaterGroup,
         type: TemplaterType,
-        designation: TemplaterDesignation,
+        // designation: TemplaterDesignation,
         variant: TemplaterVariant,
         language: LanguageSpecifier,
         // document: DocumentExtensionType
@@ -63,7 +58,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         self.platform = platform
         self.group = group
         self.type = type
-        self.designation = designation
+        // self.designation = designation
         self.variant = variant
         self.language = language
         // self.document = document
