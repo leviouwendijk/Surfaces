@@ -30,8 +30,9 @@ public struct TemplaterConfigurationLoader: TemplaterConfigurationLoading, Senda
     }
 
     public func loadConfig(for templatePath: TemplaterTemplatePath) throws -> TemplaterTemplateConfiguration {
-        let jsonPath = templatePath.basePath + DocumentExtensionType.json.dotPrefixed
-        let fileURL = URL(filePath: jsonPath)
+        let fileURL = baseURL
+        .appendingPathComponent(templatePath.basePath)
+        .appendingPathExtension("json")
 
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
             throw TemplateConfigurationError.notFound(path: fileURL.path)
