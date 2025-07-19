@@ -2,6 +2,11 @@ import Foundation
 import Structures
 import plate
 
+public enum TemplaterSection: String, RawRepresentable, Codable, Sendable {
+    case image
+    case template
+}
+
 public enum TemplaterPlatform: String, RawRepresentable, Codable, Sendable {
     case mail
     case document
@@ -38,6 +43,7 @@ public enum TemplaterVariant: String, RawRepresentable, Codable, Sendable {
 // .............................................../<language>.json  <-- contains required variables + subject with any placeholders
 
 public struct TemplaterTemplatePath: Codable, Sendable {
+    public let section: TemplaterSection // template, image
     public let platform: TemplaterPlatform // document / mail
     public let group: TemplaterGroup // billing / appointment
     public let type: TemplaterType // invoice / confirmation
@@ -46,6 +52,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
     // public let document: DocumentExtensionType
     
     public init(
+        section: TemplaterSection,
         platform: TemplaterPlatform,
         group: TemplaterGroup,
         type: TemplaterType,
@@ -54,6 +61,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         language: LanguageSpecifier,
         // document: DocumentExtensionType
     ) {
+        self.section = section
         self.platform = platform
         self.group = group
         self.type = type
@@ -65,6 +73,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
 
     public var basePath: String {
         [
+            section.rawValue,
             platform.rawValue,
             group.rawValue,
             type.rawValue,
