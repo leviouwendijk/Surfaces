@@ -49,26 +49,21 @@ public struct TemplaterTemplatePath: Codable, Sendable {
     public let type: TemplaterType // invoice / confirmation
     public let variant: TemplaterVariant // base, training, particulars
     public let language: LanguageSpecifier
-    // public let document: DocumentExtensionType
     
     public init(
         section: TemplaterSection,
         platform: TemplaterPlatform,
         group: TemplaterGroup,
         type: TemplaterType,
-        // designation: TemplaterDesignation,
         variant: TemplaterVariant,
         language: LanguageSpecifier,
-        // document: DocumentExtensionType
     ) {
         self.section = section
         self.platform = platform
         self.group = group
         self.type = type
-        // self.designation = designation
         self.variant = variant
         self.language = language
-        // self.document = document
     }
 
     public var basePath: String {

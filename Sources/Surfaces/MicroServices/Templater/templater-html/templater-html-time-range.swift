@@ -3,9 +3,17 @@ import plate
 import Structures
 import Interfaces
 
-public struct HTMLTimeRange {
+public struct HTMLTimeRange: Sendable, Codable {
     public let start: String
     public let end:   String
+    
+    public init(
+        start: String,
+        end: String
+    ) {
+        self.start = start
+        self.end = end
+    }
 }
 
 public func htmlTimeRangeNodes(

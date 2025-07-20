@@ -26,7 +26,7 @@ public func htmlLocationData(
 }
 
 public func htmlAppointmentsNodes(
-    nav:              HTMLAppointmentNavigationInstructions,
+    navigation:       HTMLAppointmentNavigationInstructions,
     appointments:     [MailerAPIAppointmentContent],
     requestCarPlate:  Bool = false
 ) -> [HTMLNode] {
@@ -42,7 +42,7 @@ public func htmlAppointmentsNodes(
             area:   first.area
         )
         nodes += htmlNavigationInstructionsNodes(
-            nav:             nav,
+            navigation:      navigation,
             requestCarPlate: requestCarPlate,
             location:        loc
         )

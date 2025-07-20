@@ -43,7 +43,7 @@ public func htmlHasLocalSession(
 }
 
 public func htmlNavigationInstructionsNodes(
-    nav:               HTMLAppointmentNavigationInstructions,
+    navigation:        HTMLAppointmentNavigationInstructions,
     requestCarPlate:   Bool = false,
     location:          AppointmentLocationData?
 ) -> [HTMLNode] {
@@ -58,7 +58,7 @@ public func htmlNavigationInstructionsNodes(
     let introNode = HTMLNode(
         tag: "p",
         attributes: ["class":"nav-instructions__intro"],
-        children: [ HTMLNode(text: nav.intro) ]
+        children: [ HTMLNode(text: navigation.intro) ]
     )
 
     // Optional address paragraph
@@ -77,12 +77,12 @@ public func htmlNavigationInstructionsNodes(
     let detailNode = HTMLNode(
         tag: "p",
         attributes: ["class":"nav-instructions__detail"],
-        children: [ HTMLNode(text: nav.detail) ]
+        children: [ HTMLNode(text: navigation.detail) ]
     )
 
     // Optional request paragraph
     var requestNodes: [HTMLNode] = []
-    if requestCarPlate, let req = nav.request {
+    if requestCarPlate, let req = navigation.request {
         requestNodes.append(
             HTMLNode(
               tag: "p",
