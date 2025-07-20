@@ -22,3 +22,16 @@ public struct TemplaterPlaceholder: Codable, Sendable {
         self.required = required
     }
 }
+
+public struct TemplaterPlaceholders: Codable, Sendable {
+    public let provided: [TemplaterPlaceholder]
+    public let rendered: [TemplaterPlaceholder]
+    
+    public init(
+        provided: [TemplaterPlaceholder],
+        rendered: [TemplaterPlaceholder]
+    ) {
+        self.provided = provided
+        self.rendered = rendered
+    }
+}
