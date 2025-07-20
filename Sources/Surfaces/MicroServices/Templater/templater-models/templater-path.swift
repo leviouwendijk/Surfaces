@@ -66,6 +66,22 @@ public struct TemplaterTemplatePath: Codable, Sendable {
         self.language = language
     }
 
+    public var cssPath: String {
+        [
+            section.rawValue,
+            platform.rawValue,
+            // group.rawValue,
+            // type.rawValue,
+            // variant.rawValue,
+            // language.code
+        ]
+        .joined(separator: "/") + "/styles.css"
+    }
+
+    public func cssURL(resourcesURL: URL) -> URL {
+        return resourcesURL.appendingPathComponent(cssPath)
+    }
+
     public var basePath: String {
         [
             section.rawValue,
