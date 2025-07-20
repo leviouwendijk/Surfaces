@@ -10,7 +10,7 @@ public enum TemplaterUseDesignation: String, RawRepresentable, Codable, Sendable
 public struct TemplaterTemplateConfiguration: Codable, Sendable {
     public let language: LanguageSpecifier
     public let subject: String?
-    public let placeholders: TemplaterPlaceholders?
+    public let placeholders: TemplaterPlaceholders
     public let defaults: [String: JSONValue]?
     public let labels: [GeneralizedLabel]?
     public let allowedReturnTypes: [DocumentExtensionType]?
@@ -19,7 +19,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
     public init(
         language: LanguageSpecifier,
         subject: String?,
-        placeholders: TemplaterPlaceholders? = nil,
+        placeholders: TemplaterPlaceholders,
         defaults: [String: JSONValue]? = nil,
         labels: [GeneralizedLabel]?,
         allowedReturnTypes: [DocumentExtensionType]? = [.html, .txt, .pdf], // add .rtf, .norg, .docx

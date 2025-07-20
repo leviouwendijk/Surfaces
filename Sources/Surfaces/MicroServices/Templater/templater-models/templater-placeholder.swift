@@ -50,8 +50,8 @@ public struct TemplaterPlaceholders: Codable, Sendable {
     public let rendered: [TemplaterRenderedPlaceholder]
     
     public init(
-        provided: [TemplaterProvidedPlaceholder],
-        rendered: [TemplaterRenderedPlaceholder]
+        provided: [TemplaterProvidedPlaceholder] = [],
+        rendered: [TemplaterRenderedPlaceholder] = []
     ) {
         self.provided = provided
         self.rendered = rendered
