@@ -30,7 +30,7 @@ public struct TemplaterImagePath: Codable, Sendable {
     public let document: DocumentExtensionType
     
     public init(
-        section: TemplaterSection,
+        section: TemplaterSection = .image,
         group: TemplaterImageGroup,
         identifier: TemplaterImageIdentifier,
         render: TemplaterImageRenderType,
