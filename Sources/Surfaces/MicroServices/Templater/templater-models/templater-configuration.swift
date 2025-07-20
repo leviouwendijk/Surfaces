@@ -13,6 +13,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
     public let placeholders: TemplaterPlaceholders
     public let defaults: [String: JSONValue]?
     public let labels: [GeneralizedLabel]?
+    public let images: [TemplaterImage]
     public let allowedReturnTypes: [DocumentExtensionType]?
     public let use: [TemplaterUseDesignation]?
     
@@ -22,6 +23,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
         placeholders: TemplaterPlaceholders,
         defaults: [String: JSONValue]? = nil,
         labels: [GeneralizedLabel]?,
+        images: [TemplaterImage] = [],
         allowedReturnTypes: [DocumentExtensionType]? = [.html, .txt, .pdf], // add .rtf, .norg, .docx
         use: [TemplaterUseDesignation]? = nil
     ) {
@@ -30,6 +32,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
         self.placeholders = placeholders
         self.defaults = defaults
         self.labels = labels
+        self.images = images
         self.allowedReturnTypes = allowedReturnTypes
         self.use = use
     }

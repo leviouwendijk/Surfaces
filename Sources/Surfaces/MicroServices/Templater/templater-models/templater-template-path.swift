@@ -51,7 +51,7 @@ public struct TemplaterTemplatePath: Codable, Sendable {
     public let language: LanguageSpecifier
     
     public init(
-        section: TemplaterSection,
+        section: TemplaterSection = .template,
         platform: TemplaterPlatform,
         group: TemplaterGroup,
         type: TemplaterType,

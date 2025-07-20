@@ -31,7 +31,7 @@ public struct TemplaterTemplateProvider: TemplaterTemplateProviding, Sendable {
     }
 
     public func fetchTemplate(
-            at templatePath: TemplaterTemplatePath
+        at templatePath: TemplaterTemplatePath
     ) throws -> String {
         let fm = FileManager.default
 
