@@ -61,17 +61,14 @@ public func htmlNavigationInstructionsNodes(
         children: [ HTMLNode(text: navigation.intro) ]
     )
 
-    // Optional address paragraph
     var addressNodes: [HTMLNode] = []
-    if let loc = location, !loc.address.isEmpty {
-        addressNodes.append(
-            HTMLNode(
-              tag: "p",
-              attributes: ["class":"nav-instructions__address"],
-              children: [ HTMLNode(text: "\(loc.address)\(loc.area.isEmpty ? "" : ", \(loc.area)")") ]
-            )
+    addressNodes.append(
+        HTMLNode(
+          tag: "p",
+          attributes: ["class":"nav-instructions__address"],
+          children: [ HTMLNode(text: navigation.location)]
         )
-    }
+    )
 
     // Detail paragraph
     let detailNode = HTMLNode(

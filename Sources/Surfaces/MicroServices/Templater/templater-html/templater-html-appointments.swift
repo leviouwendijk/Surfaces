@@ -62,7 +62,7 @@ public func htmlAppointmentsNodes(
             nodes.append(HTMLNode(tag:"hr"))
         }
 
-        let loc     = htmlLocationData(
+        let loc = htmlLocationData(
             street: appt.street,
             number: appt.number,
             area:   appt.area
