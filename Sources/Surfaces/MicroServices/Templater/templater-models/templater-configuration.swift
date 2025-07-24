@@ -8,7 +8,7 @@ public enum TemplaterUseDesignation: String, RawRepresentable, Codable, Sendable
 }
 
 public enum TemplaterStyleSpecifier: String, RawRepresentable, Codable, Sendable {
-    case original
+    case keep
     case replace
     // case merge
 }
