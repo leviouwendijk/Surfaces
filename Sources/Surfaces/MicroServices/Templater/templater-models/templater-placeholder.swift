@@ -6,6 +6,7 @@ public enum TemplaterPlaceholderType: String, RawRepresentable, Codable, Sendabl
     case object
     case string
     case boolean
+    case array
 }
 
 public struct TemplaterProvidedPlaceholder: Codable, Sendable {
