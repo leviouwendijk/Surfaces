@@ -30,6 +30,11 @@ let package = Package(
             url: "https://github.com/leviouwendijk/Interfaces.git",
             branch: "master"
         ),
+
+        .package(
+            url: "https://github.com/leviouwendijk/Commerce.git",
+            branch: "master"
+        ),
         // .package(
         //     url: "https://github.com/vapor/postgres-nio.git", 
         //     from: "1.12.0"
@@ -43,6 +48,7 @@ let package = Package(
                 .product(name: "Structures", package: "Structures"),
                 .product(name: "Extensions", package: "Extensions"),
                 .product(name: "Interfaces", package: "Interfaces"),
+                .product(name: "Commerce", package: "Commerce"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
             ],
             resources: [
@@ -57,6 +63,7 @@ let package = Package(
                 .product(name: "Structures", package: "Structures"),
                 .product(name: "Extensions", package: "Extensions"),
                 .product(name: "Interfaces", package: "Interfaces"),
+                .product(name: "Commerce", package: "Commerce"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
             ]
         ),

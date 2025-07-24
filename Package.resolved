@@ -1,6 +1,24 @@
 {
-  "originHash" : "36a541505c30d34090cdedefc030031e638af680959965c3a8127522b848527f",
+  "originHash" : "25cb39b2658d35cd3a55f1591557b26d40538a13ed887c1269092bb7e0035aa2",
   "pins" : [
+    {
+      "identity" : "commerce",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leviouwendijk/Commerce.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "e3f505064a4ed945679b293bc70c70ee30df8d50"
+      }
+    },
+    {
+      "identity" : "economics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leviouwendijk/Economics.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "379ead15beebebf4d3850418baaa0c1f9aff226d"
+      }
+    },
     {
       "identity" : "extensions",
       "kind" : "remoteSourceControl",
@@ -16,7 +34,7 @@
       "location" : "https://github.com/leviouwendijk/Interfaces.git",
       "state" : {
         "branch" : "master",
-        "revision" : "cc797b9e31db36c052b5aca0509261c14f74cfc6"
+        "revision" : "1dc5f5d053f4e05b7649adfb5e4aeccca0458a5d"
       }
     },
     {

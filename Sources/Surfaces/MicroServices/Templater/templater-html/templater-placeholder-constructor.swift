@@ -5,7 +5,7 @@ import Structures
 public enum TemplaterPlaceholderConstructor: String, Codable, Sendable {
     case appointments
     case label
-    // case invoice
+    case invoice
     case time_range
 
     public func render(
@@ -19,8 +19,8 @@ public enum TemplaterPlaceholderConstructor: String, Codable, Sendable {
                 return try renderAppointments(placeholder: placeholder, using: provided, config: config, syntax: syntax)
             case .label:
                 return try renderLabel(placeholder: placeholder, using: provided, config: config, syntax: syntax)
-            // case .invoice:
-            //     return try renderInvoice(placeholder: placeholder, using: provided, config: config, syntax: syntax)
+            case .invoice:
+                return try renderInvoice(placeholder: placeholder, using: provided, config: config, syntax: syntax)
             case .time_range:
                 return try renderTimeRange(placeholder: placeholder, using: provided, config: config, syntax: syntax)
         }
