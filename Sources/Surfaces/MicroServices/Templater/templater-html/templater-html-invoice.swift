@@ -132,14 +132,24 @@ public func htmlInvoiceNodes(from data: InvoiceData) -> [HTMLNode] {
     ))
 
     var overviewRows: [HTMLNode] = []
-    // Net total
+    // Net total (excl. BTW)
     overviewRows.append(HTMLNode(tag: "tr", children: [
         HTMLNode(tag: "td",
                  attributes: ["style":"font-weight:500;"],
-                 children: [ HTMLNode(text: "Som leverbare goederen en diensten") ]),
+                 children: [ HTMLNode(text: "Som excl. BTW") ]),
         HTMLNode(tag: "td",
                  attributes: ["style":"text-align:right;"],
                  children: [ HTMLNode(text: String(format:"€%.2f", data.netTotal)) ]),
+    ]))
+
+    // Gross total (incl. BTW)
+    overviewRows.append(HTMLNode(tag: "tr", children: [
+                HTMLNode(tag: "td",
+                    attributes: ["style":"font-weight:500;"],
+                    children: [ HTMLNode(text: "Som leverbare goederen en diensten") ]),
+                HTMLNode(tag: "td",
+                    attributes: ["style":"text-align:right;"],
+                    children: [ HTMLNode(text: String(format:"€%.2f", data.reconcilableTotal)) ]),
     ]))
     // Payments total (if any)
     if !data.payments.isEmpty {
