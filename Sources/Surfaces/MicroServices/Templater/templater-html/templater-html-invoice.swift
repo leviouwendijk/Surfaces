@@ -19,11 +19,11 @@ public func htmlInvoiceNodes(from data: InvoiceData) -> [HTMLNode] {
     let headerRow = HTMLNode(tag: "tr", children: [
         HTMLNode(tag: "th", children: [ HTMLNode(text: "Omschrijving") ]),
         HTMLNode(tag: "th", children: [ HTMLNode(text: "Aantal") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Eenheidsprijs (excl. BTW)") ]),
+        HTMLNode(tag: "th", children: [ HTMLNode(text: "Eenheidsprijs") ]),
         HTMLNode(tag: "th", children: [ HTMLNode(text: "BTW (%)") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Totaal excl. BTW") ]),
+        HTMLNode(tag: "th", children: [ HTMLNode(text: "Bedrag excl. BTW") ]),
         HTMLNode(tag: "th", children: [ HTMLNode(text: "BTW bedrag") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Totaal incl. BTW") ]),
+        HTMLNode(tag: "th", children: [ HTMLNode(text: "Bedrag incl. BTW") ]),
     ])
 
     // Item rows
