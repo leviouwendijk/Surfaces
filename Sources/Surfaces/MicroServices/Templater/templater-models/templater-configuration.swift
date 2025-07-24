@@ -7,6 +7,12 @@ public enum TemplaterUseDesignation: String, RawRepresentable, Codable, Sendable
     case `public`
 }
 
+public enum TemplaterStyleSpecifier: String, RawRepresentable, Codable, Sendable {
+    case original
+    case replace
+    // case merge
+}
+
 public struct TemplaterTemplateConfiguration: Codable, Sendable {
     public let language: LanguageSpecifier
     public let subject: String?
@@ -14,6 +20,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
     public let defaults: [String: JSONValue]?
     public let labels: [GeneralizedLabel]?
     public let images: [TemplaterImage]
+    public let styles: TemplaterStyleSpecifier
     public let allowedReturnTypes: [DocumentExtensionType]?
     public let use: [TemplaterUseDesignation]?
     
@@ -24,6 +31,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
         defaults: [String: JSONValue]? = nil,
         labels: [GeneralizedLabel]?,
         images: [TemplaterImage] = [],
+        styles: TemplaterStyleSpecifier = .replace,
         allowedReturnTypes: [DocumentExtensionType]? = [.html, .txt, .pdf], // add .rtf, .norg, .docx
         use: [TemplaterUseDesignation]? = nil
     ) {
@@ -33,6 +41,7 @@ public struct TemplaterTemplateConfiguration: Codable, Sendable {
         self.defaults = defaults
         self.labels = labels
         self.images = images
+        self.styles = styles
         self.allowedReturnTypes = allowedReturnTypes
         self.use = use
     }
