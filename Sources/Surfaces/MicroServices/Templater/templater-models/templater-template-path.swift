@@ -22,13 +22,16 @@ public enum TemplaterGroup: String, RawRepresentable, Codable, Sendable {
     case service
     case resolution
     // case account
+    case billing
+    case offer
 }
 
 public enum TemplaterType: String, RawRepresentable, Codable, Sendable {
     case confirmation
-    case issuance
-    case expiration
     case review
+
+    case invoice
+    case quota
 }
 
 public enum TemplaterVariant: String, RawRepresentable, Codable, Sendable {
@@ -36,6 +39,9 @@ public enum TemplaterVariant: String, RawRepresentable, Codable, Sendable {
     case expanded // extended?
     case short // simple?
     case training
+
+    case issuance
+    case expiration
 }
 
 // example directory
