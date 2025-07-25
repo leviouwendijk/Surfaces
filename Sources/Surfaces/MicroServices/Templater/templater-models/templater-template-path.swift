@@ -30,6 +30,7 @@ public enum TemplaterGroup: String, RawRepresentable, Codable, Sendable {
 public enum TemplaterType: String, RawRepresentable, Codable, Sendable {
     case confirmation
     case review
+    case food
 
     case invoice
     case quota
