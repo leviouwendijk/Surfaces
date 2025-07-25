@@ -21,6 +21,7 @@ public enum TemplaterGroup: String, RawRepresentable, Codable, Sendable {
     case quote
     case service
     case resolution
+    case affiliate
     // case account
     case billing
     case offer
