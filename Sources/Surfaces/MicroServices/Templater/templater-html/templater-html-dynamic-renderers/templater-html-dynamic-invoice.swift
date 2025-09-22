@@ -52,7 +52,8 @@ public func renderInvoice(
     )
 
     let nodes = htmlInvoiceNodes(from: invoice)
-    let html  = nodes.map { $0.render() }.joined()
+    // let html  = nodes.map { $0.render() }.joined()
+    let html  = nodes.map { $0.render(pretty: false, indent: 0, indentStep: 2) }.joined()
 
     return plate.StringTemplateReplacement(
         placeholders:      [syntax.set(for: placeholder)],

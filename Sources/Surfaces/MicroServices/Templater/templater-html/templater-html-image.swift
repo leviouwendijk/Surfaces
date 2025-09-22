@@ -2,6 +2,7 @@ import Foundation
 import Structures
 import Interfaces
 import plate
+import Constructors
 
 public func renderImageNode(
     placeholder:    String,
@@ -12,7 +13,7 @@ public func renderImageNode(
 ) throws -> StringTemplateReplacement {
     guard let imageSpec = config.images.first(where: { $0.placeholder == placeholder }) else {
         throw TemplaterDynamicRenderingError
-          .missingProvidedValue(name: "image spec for \(placeholder)")
+        .missingProvidedValue(name: "image spec for \(placeholder)")
     }
 
     let data = try imageProvider.fetchImageData(at: imageSpec.path)
@@ -21,18 +22,30 @@ public func renderImageNode(
     // let ext   = imageSpec.path.identifier.rawValue
     let mime  = "image/\(imageSpec.path.document.rawValue)"
 
-    var attrs: [String:String] = [
-       "src": "data:\(mime);base64,\(b64)"
-    ]
-    if let w = imageSpec.specifications.width {
-       attrs["width"] = "\(w)"
-    }
-    if let h = imageSpec.specifications.height {
-       attrs["height"] = "\(h)"
-    }
+    // var attrs: [String:String] = [
+    //    "src": "data:\(mime);base64,\(b64)"
+    // ]
+    // if let w = imageSpec.specifications.width {
+    //    attrs["width"] = "\(w)"
+    // }
+    // if let h = imageSpec.specifications.height {
+    //    attrs["height"] = "\(h)"
+    // }
 
-    let node = Interfaces.HTMLNode(tag: "img", attributes: attrs, children: [])
-    let html = node.render()
+    // let node = Interfaces.HTMLNode(tag: "img", attributes: attrs, children: [])
+    // let html = node.render()
+
+    var attrs: HTMLAttribute = ["src": "data:\(mime);base64,\(b64)"]
+    if let w = imageSpec.specifications.width  { attrs.merge(["width":  "\(w)"]) }
+    if let h = imageSpec.specifications.height { attrs.merge(["height": "\(h)"]) }
+
+    let node: any Constructors.HTMLNode = HTML.img(
+        src: "data:\(mime);base64,\(b64)",
+        alt: "",
+        attrs
+    )
+
+    let html = node.render(pretty: false, indent: 0, indentStep: 2)
 
     return StringTemplateReplacement(
         placeholders:      [ syntax.set(for: placeholder) ],

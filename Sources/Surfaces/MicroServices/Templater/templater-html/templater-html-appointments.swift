@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 import Interfaces
+import Constructors
 
 public struct AppointmentLocationData {
     public let address: String
@@ -29,10 +30,11 @@ public func htmlAppointmentsNodes(
     navigation:       Surfaces.HTMLAppointmentNavigationInstructions,
     appointments:     [MailerAPIAppointmentContent],
     requestCarPlate:  Bool = false
-) -> [Interfaces.HTMLNode] {
+// ) -> [Interfaces.HTMLNode] {
+) -> Constructors.HTMLFragment {
     guard !appointments.isEmpty else { return [] }
 
-    var nodes: [Interfaces.HTMLNode] = []
+    var nodes: [Constructors.HTMLNode] = []
 
     if htmlHasLocalSession(appointments: appointments) {
         let first = appointments[0]
@@ -41,6 +43,7 @@ public func htmlAppointmentsNodes(
             number: first.number,
             area:   first.area
         )
+
         nodes += htmlNavigationInstructionsNodes(
             navigation:      navigation,
             requestCarPlate: requestCarPlate,
@@ -59,7 +62,8 @@ public func htmlAppointmentsNodes(
 
     for (i, appt) in sorted.enumerated() {
         if i > 0 {
-            nodes.append(Interfaces.HTMLNode(tag:"hr"))
+            // nodes.append(Interfaces.HTMLNode(tag:"hr"))
+            nodes.append(HTML.hr())
         }
 
         let loc = htmlLocationData(
@@ -67,27 +71,39 @@ public func htmlAppointmentsNodes(
             number: appt.number,
             area:   appt.area
         )
-        let topText = Interfaces.HTMLNode(
-            tag: "p",
-            attributes: ["class":"appointment-box-text"],
-            children: [ Interfaces.HTMLNode(text:"\(appt.date)<br>\(appt.day)<br>\(appt.time)") ]
-        )
-        let bottomText = Interfaces.HTMLNode(
-            tag: "p",
-            attributes: ["class":"appointment-box-text-bottom"],
-            children: [ Interfaces.HTMLNode(text:"\(appt.location)<br>\(loc.address)<br>\(loc.area)") ]
-        )
 
-        let container = Interfaces.HTMLNode(
-            tag: "div",
-            attributes: ["class":"appointment-box-container"],
-            children: [topText, bottomText]
-        )
-        let box = Interfaces.HTMLNode(
-            tag: "div",
-            attributes: ["class":"appointment-box"],
-            children: [container]
-        )
+        // let topText = Interfaces.HTMLNode(
+        //     tag: "p",
+        //     attributes: ["class":"appointment-box-text"],
+        //     children: [ Interfaces.HTMLNode(text:"\(appt.date)<br>\(appt.day)<br>\(appt.time)") ]
+        // )
+        // let bottomText = Interfaces.HTMLNode(
+        //     tag: "p",
+        //     attributes: ["class":"appointment-box-text-bottom"],
+        //     children: [ Interfaces.HTMLNode(text:"\(appt.location)<br>\(loc.address)<br>\(loc.area)") ]
+        // )
+
+        // let container = Interfaces.HTMLNode(
+        //     tag: "div",
+        //     attributes: ["class":"appointment-box-container"],
+        //     children: [topText, bottomText]
+        // )
+        // let box = Interfaces.HTMLNode(
+        //     tag: "div",
+        //     attributes: ["class":"appointment-box"],
+        //     children: [container]
+        // )
+
+        let topText: any Constructors.HTMLNode = HTML.p(.class(["appointment-box-text"])) {
+            "\(appt.date)"; HTML.br(); "\(appt.day)"; HTML.br(); "\(appt.time)"
+        }
+        let bottomText: any Constructors.HTMLNode = HTML.p(.class(["appointment-box-text-bottom"])) {
+            "\(appt.location)"; HTML.br(); "\(loc.address)"; HTML.br(); "\(loc.area)"
+        }
+        let container: any Constructors.HTMLNode = HTML.div(.class(["appointment-box-container"])) {
+            topText; bottomText
+        }
+        let box: any Constructors.HTMLNode = HTML.div(.class(["appointment-box"])) { container }
 
         nodes.append(box)
     }

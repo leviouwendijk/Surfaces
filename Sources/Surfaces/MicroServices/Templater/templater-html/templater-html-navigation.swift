@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 import Interfaces
+import Constructors
 
 public struct HTMLAppointmentNavigationInstructions: Codable, Sendable {
     public let intro:    String
@@ -46,61 +47,82 @@ public func htmlNavigationInstructionsNodes(
     navigation:        Surfaces.HTMLAppointmentNavigationInstructions,
     requestCarPlate:   Bool = false,
     location:          Surfaces.AppointmentLocationData?
-) -> [Interfaces.HTMLNode] {
-    // Icon container
-    let iconNode = Interfaces.HTMLNode(
-        tag: "div",
-        attributes: ["class":"nav-instructions__icon"],
-        children: [ Interfaces.HTMLNode(text: HTMLStandardAssets.navigationIcon) ]
-    )
+// ) -> [Interfaces.HTMLNode] {
+) -> HTMLFragment {
+    // let iconNode = Interfaces.HTMLNode(
+    //     tag: "div",
+    //     attributes: ["class":"nav-instructions__icon"],
+    //     children: [ Interfaces.HTMLNode(text: HTMLStandardAssets.navigationIcon) ]
+    // )
 
-    // Intro paragraph
-    let introNode = Interfaces.HTMLNode(
-        tag: "p",
-        attributes: ["class":"nav-instructions__intro"],
-        children: [ Interfaces.HTMLNode(text: navigation.intro) ]
-    )
+    let iconNode: any Constructors.HTMLNode = HTML.div(.class(["nav-instructions__icon"])) {
+        HTML.raw(HTMLStandardAssets.navigationIcon)
+    }
 
-    var addressNodes: [Interfaces.HTMLNode] = []
+    // let introNode = Interfaces.HTMLNode(
+    //     tag: "p",
+    //     attributes: ["class":"nav-instructions__intro"],
+    //     children: [ Interfaces.HTMLNode(text: navigation.intro) ]
+    // )
+
+    let introNode: any Constructors.HTMLNode = HTML.p(.class(["nav-instructions__intro"])) { navigation.intro }
+
+    // var addressNodes: [Interfaces.HTMLNode] = []
+    // addressNodes.append(
+    //     Interfaces.HTMLNode(
+    //       tag: "p",
+    //       attributes: ["class":"nav-instructions__address"],
+    //       children: [ Interfaces.HTMLNode(text: navigation.location)]
+    //     )
+    // )
+
+    var addressNodes: HTMLFragment = []
     addressNodes.append(
-        Interfaces.HTMLNode(
-          tag: "p",
-          attributes: ["class":"nav-instructions__address"],
-          children: [ Interfaces.HTMLNode(text: navigation.location)]
-        )
+        HTML.p(.class(["nav-instructions__address"])) { navigation.location }
     )
 
-    // Detail paragraph
-    let detailNode = Interfaces.HTMLNode(
-        tag: "p",
-        attributes: ["class":"nav-instructions__detail"],
-        children: [ Interfaces.HTMLNode(text: navigation.detail) ]
-    )
+    // let detailNode = Interfaces.HTMLNode(
+    //     tag: "p",
+    //     attributes: ["class":"nav-instructions__detail"],
+    //     children: [ Interfaces.HTMLNode(text: navigation.detail) ]
+    // )
 
-    // Optional request paragraph
-    var requestNodes: [Interfaces.HTMLNode] = []
+    let detailNode: any Constructors.HTMLNode = HTML.p(.class(["nav-instructions__detail"])) { navigation.detail }
+
+    // var requestNodes: [Interfaces.HTMLNode] = []
+    var requestNodes: HTMLFragment = []
     if requestCarPlate, let req = navigation.request {
+        // requestNodes.append(
+        //     Interfaces.HTMLNode(
+        //       tag: "p",
+        //       attributes: ["class":"nav-instructions__text"],
+        //       children: [ Interfaces.HTMLNode(text: req) ]
+        //     )
+        // )
         requestNodes.append(
-            Interfaces.HTMLNode(
-              tag: "p",
-              attributes: ["class":"nav-instructions__text"],
-              children: [ Interfaces.HTMLNode(text: req) ]
-            )
+            HTML.p(.class(["nav-instructions__text"])) { req }
         )
     }
 
-    // Wrap inner content
-    let innerDiv = Interfaces.HTMLNode(
-        tag: "div",
-        children: [introNode] + addressNodes + [detailNode] + requestNodes
-    )
+    // let innerDiv = Interfaces.HTMLNode(
+    //     tag: "div",
+    //     children: [introNode]  addressNodes + [detailNode] + requestNodes
+    // )
 
-    // Root nav container
-    let root = Interfaces.HTMLNode(
-        tag: "div",
-        attributes: ["class":"nav-instructions"],
-        children: [iconNode, innerDiv]
-    )
+    let innerDiv: any Constructors.HTMLNode = HTML.div {
+        introNode
+        addressNodes
+        detailNode
+        requestNodes
+    }
 
-    return [root]
+    // let root = Interfaces.HTMLNode(
+    //     tag: "div",
+    //     attributes: ["class":"nav-instructions"],
+    //     children: [iconNode, innerDiv]
+    // )
+
+    // return [root]
+    let root: any Constructors.HTMLNode = HTML.div(.class(["nav-instructions"])) { iconNode; innerDiv }
+    return [root] as HTMLFragment
 }

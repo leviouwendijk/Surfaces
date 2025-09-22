@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 import Interfaces
+import Constructors
 
 public func renderAppointments(
     placeholder:    String,
@@ -32,7 +33,8 @@ public func renderAppointments(
         appointments:    appts,
         requestCarPlate: requestCarPlate
     )
-    let html = nodes.map { $0.render() }.joined()
+    // let html = nodes.map { $0.render() }.joined()
+    let html = nodes.map { $0.render(pretty: false, indent: 0, indentStep: 2) }.joined()
 
     // 1e) wrap in a replacement
     return plate.StringTemplateReplacement(

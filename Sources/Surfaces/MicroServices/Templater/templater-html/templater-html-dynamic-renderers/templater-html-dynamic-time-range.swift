@@ -19,7 +19,8 @@ public func renderTimeRange(
 
     // build and render
     let nodes = htmlTimeRangeNodes(availability, language: config.language)
-    let html = nodes.map { $0.render() }.joined()
+    // let html = nodes.map { $0.render() }.joined()
+    let html  = nodes.map { $0.render(pretty: false, indent: 0, indentStep: 2) }.joined()
 
     return plate.StringTemplateReplacement(
         placeholders:     [syntax.set(for: placeholder)],

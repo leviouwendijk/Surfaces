@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 import Interfaces
+import Constructors
 
 public struct HTMLTimeRange: Sendable, Codable {
     public let start: String
@@ -19,8 +20,10 @@ public struct HTMLTimeRange: Sendable, Codable {
 public func htmlTimeRangeNodes(
     _ availability: [MailerAPIWeekday: Surfaces.HTMLTimeRange?],
     language: plate.LanguageSpecifier
-) -> [Interfaces.HTMLNode] {
-    return MailerAPIWeekday.allCases.compactMap { day -> Interfaces.HTMLNode? in
+// ) -> [Interfaces.HTMLNode] {
+) -> HTMLFragment {
+    // return MailerAPIWeekday.allCases.compactMap { day -> Interfaces.HTMLNode? in
+    return MailerAPIWeekday.allCases.compactMap { day -> (any Constructors.HTMLNode)? in
         guard let maybeRange = availability[day],
               let range      = maybeRange,
               !range.start.isEmpty,
@@ -37,15 +40,19 @@ public func htmlTimeRangeNodes(
             label = day.english
         }
 
-        let children = Interfaces.HTMLBuilder.buildBlock(
-            span(.class("day-label"),  "\(label):"),
-            span(.class("day-hours"), "\(range.start) – \(range.end)")
-        )
+        // let children = Interfaces.HTMLBuilder.buildBlock(
+        //     span(.class("day-label"),  "\(label):"),
+        //     span(.class("day-hours"), "\(range.start) – \(range.end)")
+        // )
 
-        return Interfaces.HTMLNode(
-            tag: "p",
-            attributes: .class("time-range-line"),
-            children: children
-        )
+        // return Interfaces.HTMLNode(
+        //     tag: "p",
+        //     attributes: .class("time-range-line"),
+        //     children: children
+        // )
+        return HTML.p(.class(["time-range-line"])) {
+            HTML.span(.class(["day-label"]))  { "\(label):" }
+            HTML.span(.class(["day-hours"])) { "\(range.start) – \(range.end)" }
+        }
     }
 }
