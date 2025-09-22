@@ -6,15 +6,15 @@ import Interfaces
 public func renderLabel(
     placeholder:    String,
     using provided: [String: JSONValue],
-    config:         TemplaterTemplateConfiguration,
-    syntax:         PlaceholderSyntax
-) throws -> StringTemplateReplacement {
+    config:         Surfaces.TemplaterTemplateConfiguration,
+    syntax:         plate.PlaceholderSyntax
+) throws -> plate.StringTemplateReplacement {
     // derive the label key from the placeholder name:
     // e.g. "generalized_appointment_label" → "appointment"
     let raw = placeholder
       .replacingOccurrences(of: "generalized_", with: "")
       .replacingOccurrences(of: "_label", with: "")
-    guard let labelKey = GeneralizedLabel(rawValue: raw) else {
+    guard let labelKey = Structures.GeneralizedLabel(rawValue: raw) else {
         throw TemplaterDynamicRenderingError.missingProvidedValue(name: placeholder)
     }
 

@@ -13,9 +13,9 @@ private struct InvoicePaymentConfig: Decodable {
 public func renderInvoice(
     placeholder: String,
     using provided: [String: JSONValue],
-    config: TemplaterTemplateConfiguration,
-    syntax: PlaceholderSyntax
-) throws -> StringTemplateReplacement {
+    config: Surfaces.TemplaterTemplateConfiguration,
+    syntax: plate.PlaceholderSyntax
+) throws -> plate.StringTemplateReplacement {
     guard case let .array(rawLineItems)? = provided["line_items"] else {
         throw TemplaterDynamicRenderingError.missingProvidedValue(name: "line_items")
     }
@@ -54,7 +54,7 @@ public func renderInvoice(
     let nodes = htmlInvoiceNodes(from: invoice)
     let html  = nodes.map { $0.render() }.joined()
 
-    return StringTemplateReplacement(
+    return plate.StringTemplateReplacement(
         placeholders:      [syntax.set(for: placeholder)],
         replacement:       html,
         initializer:       .manual,

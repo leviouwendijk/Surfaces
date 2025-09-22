@@ -1,5 +1,5 @@
 {
-  "originHash" : "25cb39b2658d35cd3a55f1591557b26d40538a13ed887c1269092bb7e0035aa2",
+  "originHash" : "5eb8bdec960d6d610c2e3efca98c7f8c725d6e00c61b02f68041bd8c08f06d0b",
   "pins" : [
     {
       "identity" : "commerce",
@@ -7,7 +7,16 @@
       "location" : "https://github.com/leviouwendijk/Commerce.git",
       "state" : {
         "branch" : "master",
-        "revision" : "e3f505064a4ed945679b293bc70c70ee30df8d50"
+        "revision" : "2fbd84458c4a1c07e14e633587f21836569b3e99"
+      }
+    },
+    {
+      "identity" : "constructors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leviouwendijk/Constructors.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "56a66750f131f9e14364b4c5ecc2e46c58f95ac5"
       }
     },
     {
@@ -34,7 +43,7 @@
       "location" : "https://github.com/leviouwendijk/Interfaces.git",
       "state" : {
         "branch" : "master",
-        "revision" : "1dc5f5d053f4e05b7649adfb5e4aeccca0458a5d"
+        "revision" : "e2a7ad5ced5495f8d177cb6ba53fd436a3abd00a"
       }
     },
     {
@@ -43,7 +52,7 @@
       "location" : "https://github.com/leviouwendijk/plate.git",
       "state" : {
         "branch" : "master",
-        "revision" : "be465cea1f62a95dc4781b67366c42e81b125637"
+        "revision" : "bef4fe9c3d768cd76521af5d63d0628ccbad06d2"
       }
     },
     {
@@ -52,7 +61,7 @@
       "location" : "https://github.com/leviouwendijk/Structures.git",
       "state" : {
         "branch" : "master",
-        "revision" : "3ac509687b6e5daaec7db7a5f7fbb677db7ba41d"
+        "revision" : "24d08807d7d8eb60b3a03f752cd0dd90b3577bf7"
       }
     }
   ],

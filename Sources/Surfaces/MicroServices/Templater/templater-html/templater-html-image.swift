@@ -31,7 +31,7 @@ public func renderImageNode(
        attrs["height"] = "\(h)"
     }
 
-    let node = HTMLNode(tag: "img", attributes: attrs, children: [])
+    let node = Interfaces.HTMLNode(tag: "img", attributes: attrs, children: [])
     let html = node.render()
 
     return StringTemplateReplacement(

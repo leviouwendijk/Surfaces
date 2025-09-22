@@ -26,13 +26,13 @@ public func htmlLocationData(
 }
 
 public func htmlAppointmentsNodes(
-    navigation:       HTMLAppointmentNavigationInstructions,
+    navigation:       Surfaces.HTMLAppointmentNavigationInstructions,
     appointments:     [MailerAPIAppointmentContent],
     requestCarPlate:  Bool = false
-) -> [HTMLNode] {
+) -> [Interfaces.HTMLNode] {
     guard !appointments.isEmpty else { return [] }
 
-    var nodes: [HTMLNode] = []
+    var nodes: [Interfaces.HTMLNode] = []
 
     if htmlHasLocalSession(appointments: appointments) {
         let first = appointments[0]
@@ -59,7 +59,7 @@ public func htmlAppointmentsNodes(
 
     for (i, appt) in sorted.enumerated() {
         if i > 0 {
-            nodes.append(HTMLNode(tag:"hr"))
+            nodes.append(Interfaces.HTMLNode(tag:"hr"))
         }
 
         let loc = htmlLocationData(
@@ -67,23 +67,23 @@ public func htmlAppointmentsNodes(
             number: appt.number,
             area:   appt.area
         )
-        let topText = HTMLNode(
+        let topText = Interfaces.HTMLNode(
             tag: "p",
             attributes: ["class":"appointment-box-text"],
-            children: [ HTMLNode(text:"\(appt.date)<br>\(appt.day)<br>\(appt.time)") ]
+            children: [ Interfaces.HTMLNode(text:"\(appt.date)<br>\(appt.day)<br>\(appt.time)") ]
         )
-        let bottomText = HTMLNode(
+        let bottomText = Interfaces.HTMLNode(
             tag: "p",
             attributes: ["class":"appointment-box-text-bottom"],
-            children: [ HTMLNode(text:"\(appt.location)<br>\(loc.address)<br>\(loc.area)") ]
+            children: [ Interfaces.HTMLNode(text:"\(appt.location)<br>\(loc.address)<br>\(loc.area)") ]
         )
 
-        let container = HTMLNode(
+        let container = Interfaces.HTMLNode(
             tag: "div",
             attributes: ["class":"appointment-box-container"],
             children: [topText, bottomText]
         )
-        let box = HTMLNode(
+        let box = Interfaces.HTMLNode(
             tag: "div",
             attributes: ["class":"appointment-box"],
             children: [container]

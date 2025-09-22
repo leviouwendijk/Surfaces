@@ -30,9 +30,12 @@ let package = Package(
             url: "https://github.com/leviouwendijk/Interfaces.git",
             branch: "master"
         ),
-
         .package(
             url: "https://github.com/leviouwendijk/Commerce.git",
+            branch: "master"
+        ),
+        .package(
+            url: "https://github.com/leviouwendijk/Constructors.git",
             branch: "master"
         ),
         // .package(
@@ -49,6 +52,7 @@ let package = Package(
                 .product(name: "Extensions", package: "Extensions"),
                 .product(name: "Interfaces", package: "Interfaces"),
                 .product(name: "Commerce", package: "Commerce"),
+                .product(name: "Constructors", package: "Constructors"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
             ],
             resources: [
@@ -64,6 +68,7 @@ let package = Package(
                 .product(name: "Extensions", package: "Extensions"),
                 .product(name: "Interfaces", package: "Interfaces"),
                 .product(name: "Commerce", package: "Commerce"),
+                .product(name: "Constructors", package: "Constructors"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
             ]
         ),

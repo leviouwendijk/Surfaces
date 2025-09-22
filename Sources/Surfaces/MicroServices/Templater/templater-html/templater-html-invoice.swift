@@ -4,79 +4,79 @@ import Commerce
 import Structures
 import Interfaces
 
-public func htmlInvoiceNodes(from data: InvoiceData) -> [HTMLNode] {
-    var nodes: [HTMLNode] = []
+public func htmlInvoiceNodes(from data: InvoiceData) -> [Interfaces.HTMLNode] {
+    var nodes: [Interfaces.HTMLNode] = []
 
     // ── Title ──
-    nodes.append(HTMLNode(
+    nodes.append(Interfaces.HTMLNode(
         tag: "p",
         attributes: ["class":"table-title"],
-        children: [ HTMLNode(text: "Specificatie") ]
+        children: [ Interfaces.HTMLNode(text: "Specificatie") ]
     ))
 
     // ── Line Items ──
     // Header row
-    let headerRow = HTMLNode(tag: "tr", children: [
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Omschrijving") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Aantal") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Eenheidsprijs") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "BTW (%)") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Bedrag excl. BTW") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "BTW bedrag") ]),
-        HTMLNode(tag: "th", children: [ HTMLNode(text: "Bedrag incl. BTW") ]),
+    let headerRow = Interfaces.HTMLNode(tag: "tr", children: [
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "Omschrijving") ]),
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "Aantal") ]),
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "Eenheidsprijs") ]),
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "BTW (%)") ]),
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "Bedrag excl. BTW") ]),
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "BTW bedrag") ]),
+        Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "Bedrag incl. BTW") ]),
     ])
 
     // Item rows
-    var lineRows: [HTMLNode] = [headerRow]
+    var lineRows: [Interfaces.HTMLNode] = [headerRow]
     for item in data.content {
-        lineRows.append(HTMLNode(tag: "tr", children: [
-            HTMLNode(tag: "td", children: [
-                HTMLNode(text: item.parentId != nil ? "└─ \(item.name)" : item.name)
+        lineRows.append(Interfaces.HTMLNode(tag: "tr", children: [
+            Interfaces.HTMLNode(tag: "td", children: [
+                Interfaces.HTMLNode(text: item.parentId != nil ? "└─ \(item.name)" : item.name)
             ]),
-            HTMLNode(tag: "td",
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["class":"col-amount","style":"text-align:center;"],
-                     children: [ HTMLNode(text: "\(item.count)") ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: "\(item.count)") ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["class":"col-rate","style":"text-align:right;"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", item.unit.net)) ]),
-            HTMLNode(tag: "td", children: [
-                HTMLNode(text: String(format:"%.2f%%", item.unit.vat.rate))
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", item.unit.net)) ]),
+            Interfaces.HTMLNode(tag: "td", children: [
+                Interfaces.HTMLNode(text: String(format:"%.2f%%", item.unit.vat.rate))
             ]),
-            HTMLNode(tag: "td",
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["style":"text-align:right;"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", item.subtotal.net)) ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", item.subtotal.net)) ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["style":"text-align:right;"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", item.subtotal.vat)) ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", item.subtotal.vat)) ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["style":"text-align:right;"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", item.subtotal.gross)) ]),
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", item.subtotal.gross)) ]),
         ]))
     }
 
     // Summary row
-    let summaryRow = HTMLNode(
+    let summaryRow = Interfaces.HTMLNode(
         tag: "tr",
         attributes: ["class":"table-subtotal-row"],
         children: [
-            HTMLNode(tag: "td",
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["colspan":"4","class":"table-subtotal-label"],
-                     children: [ HTMLNode(text: "Totaal") ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: "Totaal") ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["class":"table-subtotal-value"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", data.netTotal)) ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.netTotal)) ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["class":"table-subtotal-value"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", data.vatTotal)) ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.vatTotal)) ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["class":"table-subtotal-value"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", data.reconcilableTotal)) ]),
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.reconcilableTotal)) ]),
         ]
     )
     lineRows.append(summaryRow)
 
     // Wrap in table
-    nodes.append(HTMLNode(
+    nodes.append(Interfaces.HTMLNode(
         tag: "table",
         attributes: ["class":"line-items-table"],
         children: lineRows
@@ -85,39 +85,39 @@ public func htmlInvoiceNodes(from data: InvoiceData) -> [HTMLNode] {
     // ── Payments ──
     if !data.payments.isEmpty {
         // Section title
-        nodes.append(HTMLNode(
+        nodes.append(Interfaces.HTMLNode(
             tag: "p",
             attributes: ["class":"table-title"],
-            children: [ HTMLNode(text: "Betalingen") ]
+            children: [ Interfaces.HTMLNode(text: "Betalingen") ]
         ))
 
         // Payment rows
-        var payRows: [HTMLNode] = []
+        var payRows: [Interfaces.HTMLNode] = []
         for pmt in data.payments {
-            payRows.append(HTMLNode(tag: "tr", children: [
-                HTMLNode(tag: "td", children: [ HTMLNode(text: pmt.details) ]),
-                HTMLNode(tag: "td",
+            payRows.append(Interfaces.HTMLNode(tag: "tr", children: [
+                Interfaces.HTMLNode(tag: "td", children: [ Interfaces.HTMLNode(text: pmt.details) ]),
+                Interfaces.HTMLNode(tag: "td",
                          attributes: ["style":"text-align:right;"],
-                         children: [ HTMLNode(text: String(format:"€%.2f", pmt.amount)) ]),
+                         children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", pmt.amount)) ]),
             ]))
         }
 
         // Payment summary
-        payRows.append(HTMLNode(
+        payRows.append(Interfaces.HTMLNode(
             tag: "tr",
             attributes: ["class":"table-subtotal-row"],
             children: [
-                HTMLNode(tag: "td",
+                Interfaces.HTMLNode(tag: "td",
                          attributes: ["class":"table-subtotal-label"],
-                         children: [ HTMLNode(text: "Totaal voldane betalingen") ]),
-                HTMLNode(tag: "td",
+                         children: [ Interfaces.HTMLNode(text: "Totaal voldane betalingen") ]),
+                Interfaces.HTMLNode(tag: "td",
                          attributes: ["class":"table-subtotal-value"],
-                         children: [ HTMLNode(text: String(format:"€%.2f", data.paymentTotal)) ]),
+                         children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.paymentTotal)) ]),
             ]
         ))
 
         // Wrap in table
-        nodes.append(HTMLNode(
+        nodes.append(Interfaces.HTMLNode(
             tag: "table",
             attributes: ["class":"payments-table"],
             children: payRows
@@ -125,55 +125,55 @@ public func htmlInvoiceNodes(from data: InvoiceData) -> [HTMLNode] {
     }
 
     // ── Final Overview ──
-    nodes.append(HTMLNode(
+    nodes.append(Interfaces.HTMLNode(
         tag: "p",
         attributes: ["class":"table-title"],
-        children: [ HTMLNode(text: "Samenvatting") ]
+        children: [ Interfaces.HTMLNode(text: "Samenvatting") ]
     ))
 
-    var overviewRows: [HTMLNode] = []
+    var overviewRows: [Interfaces.HTMLNode] = []
     // Net total (excl. BTW)
-    overviewRows.append(HTMLNode(tag: "tr", children: [
-        HTMLNode(tag: "td",
+    overviewRows.append(Interfaces.HTMLNode(tag: "tr", children: [
+        Interfaces.HTMLNode(tag: "td",
                  attributes: ["style":"font-weight:500;"],
-                 children: [ HTMLNode(text: "Som excl. BTW") ]),
-        HTMLNode(tag: "td",
+                 children: [ Interfaces.HTMLNode(text: "Som excl. BTW") ]),
+        Interfaces.HTMLNode(tag: "td",
                  attributes: ["style":"text-align:right;"],
-                 children: [ HTMLNode(text: String(format:"€%.2f", data.netTotal)) ]),
+                 children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.netTotal)) ]),
     ]))
 
     // Gross total (incl. BTW)
-    overviewRows.append(HTMLNode(tag: "tr", children: [
-                HTMLNode(tag: "td",
+    overviewRows.append(Interfaces.HTMLNode(tag: "tr", children: [
+                Interfaces.HTMLNode(tag: "td",
                     attributes: ["style":"font-weight:500;"],
-                    children: [ HTMLNode(text: "Som leverbare goederen en diensten") ]),
-                HTMLNode(tag: "td",
+                    children: [ Interfaces.HTMLNode(text: "Som leverbare goederen en diensten") ]),
+                Interfaces.HTMLNode(tag: "td",
                     attributes: ["style":"text-align:right;"],
-                    children: [ HTMLNode(text: String(format:"€%.2f", data.reconcilableTotal)) ]),
+                    children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.reconcilableTotal)) ]),
     ]))
     // Payments total (if any)
     if !data.payments.isEmpty {
-        overviewRows.append(HTMLNode(tag: "tr", children: [
-            HTMLNode(tag: "td",
+        overviewRows.append(Interfaces.HTMLNode(tag: "tr", children: [
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["style":"font-weight:500;"],
-                     children: [ HTMLNode(text: "Reeds voldane betalingen") ]),
-            HTMLNode(tag: "td",
+                     children: [ Interfaces.HTMLNode(text: "Reeds voldane betalingen") ]),
+            Interfaces.HTMLNode(tag: "td",
                      attributes: ["style":"text-align:right;"],
-                     children: [ HTMLNode(text: String(format:"€%.2f", data.paymentTotal)) ]),
+                     children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.paymentTotal)) ]),
         ]))
     }
     // Final balance
     let label = data.finalBalance.payableOrReceivable().overviewLabel()
-    overviewRows.append(HTMLNode(tag: "tr", children: [
-        HTMLNode(tag: "td",
+    overviewRows.append(Interfaces.HTMLNode(tag: "tr", children: [
+        Interfaces.HTMLNode(tag: "td",
                  attributes: ["style":"font-weight:700;"],
-                 children: [ HTMLNode(text: label) ]),
-        HTMLNode(tag: "td",
+                 children: [ Interfaces.HTMLNode(text: label) ]),
+        Interfaces.HTMLNode(tag: "td",
                  attributes: ["style":"text-align:right;font-weight:700;"],
-                 children: [ HTMLNode(text: String(format:"€%.2f", data.finalBalance)) ]),
+                 children: [ Interfaces.HTMLNode(text: String(format:"€%.2f", data.finalBalance)) ]),
     ]))
 
-    nodes.append(HTMLNode(
+    nodes.append(Interfaces.HTMLNode(
         tag: "table",
         attributes: ["class":"final-overview-table"],
         children: overviewRows

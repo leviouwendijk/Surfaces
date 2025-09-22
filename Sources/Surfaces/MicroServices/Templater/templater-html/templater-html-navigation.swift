@@ -43,60 +43,60 @@ public func htmlHasLocalSession(
 }
 
 public func htmlNavigationInstructionsNodes(
-    navigation:        HTMLAppointmentNavigationInstructions,
+    navigation:        Surfaces.HTMLAppointmentNavigationInstructions,
     requestCarPlate:   Bool = false,
-    location:          AppointmentLocationData?
-) -> [HTMLNode] {
+    location:          Surfaces.AppointmentLocationData?
+) -> [Interfaces.HTMLNode] {
     // Icon container
-    let iconNode = HTMLNode(
+    let iconNode = Interfaces.HTMLNode(
         tag: "div",
         attributes: ["class":"nav-instructions__icon"],
-        children: [ HTMLNode(text: HTMLStandardAssets.navigationIcon) ]
+        children: [ Interfaces.HTMLNode(text: HTMLStandardAssets.navigationIcon) ]
     )
 
     // Intro paragraph
-    let introNode = HTMLNode(
+    let introNode = Interfaces.HTMLNode(
         tag: "p",
         attributes: ["class":"nav-instructions__intro"],
-        children: [ HTMLNode(text: navigation.intro) ]
+        children: [ Interfaces.HTMLNode(text: navigation.intro) ]
     )
 
-    var addressNodes: [HTMLNode] = []
+    var addressNodes: [Interfaces.HTMLNode] = []
     addressNodes.append(
-        HTMLNode(
+        Interfaces.HTMLNode(
           tag: "p",
           attributes: ["class":"nav-instructions__address"],
-          children: [ HTMLNode(text: navigation.location)]
+          children: [ Interfaces.HTMLNode(text: navigation.location)]
         )
     )
 
     // Detail paragraph
-    let detailNode = HTMLNode(
+    let detailNode = Interfaces.HTMLNode(
         tag: "p",
         attributes: ["class":"nav-instructions__detail"],
-        children: [ HTMLNode(text: navigation.detail) ]
+        children: [ Interfaces.HTMLNode(text: navigation.detail) ]
     )
 
     // Optional request paragraph
-    var requestNodes: [HTMLNode] = []
+    var requestNodes: [Interfaces.HTMLNode] = []
     if requestCarPlate, let req = navigation.request {
         requestNodes.append(
-            HTMLNode(
+            Interfaces.HTMLNode(
               tag: "p",
               attributes: ["class":"nav-instructions__text"],
-              children: [ HTMLNode(text: req) ]
+              children: [ Interfaces.HTMLNode(text: req) ]
             )
         )
     }
 
     // Wrap inner content
-    let innerDiv = HTMLNode(
+    let innerDiv = Interfaces.HTMLNode(
         tag: "div",
         children: [introNode] + addressNodes + [detailNode] + requestNodes
     )
 
     // Root nav container
-    let root = HTMLNode(
+    let root = Interfaces.HTMLNode(
         tag: "div",
         attributes: ["class":"nav-instructions"],
         children: [iconNode, innerDiv]

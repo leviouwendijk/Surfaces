@@ -17,10 +17,10 @@ public struct HTMLTimeRange: Sendable, Codable {
 }
 
 public func htmlTimeRangeNodes(
-    _ availability: [MailerAPIWeekday: HTMLTimeRange?],
-    language: LanguageSpecifier
-) -> [HTMLNode] {
-    return MailerAPIWeekday.allCases.compactMap { day -> HTMLNode? in
+    _ availability: [MailerAPIWeekday: Surfaces.HTMLTimeRange?],
+    language: plate.LanguageSpecifier
+) -> [Interfaces.HTMLNode] {
+    return MailerAPIWeekday.allCases.compactMap { day -> Interfaces.HTMLNode? in
         guard let maybeRange = availability[day],
               let range      = maybeRange,
               !range.start.isEmpty,
@@ -37,12 +37,12 @@ public func htmlTimeRangeNodes(
             label = day.english
         }
 
-        let children = HTMLBuilder.buildBlock(
+        let children = Interfaces.HTMLBuilder.buildBlock(
             span(.class("day-label"),  "\(label):"),
             span(.class("day-hours"), "\(range.start) – \(range.end)")
         )
 
-        return HTMLNode(
+        return Interfaces.HTMLNode(
             tag: "p",
             attributes: .class("time-range-line"),
             children: children

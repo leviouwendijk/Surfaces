@@ -6,8 +6,8 @@ import Interfaces
 public func renderAppointments(
     placeholder:    String,
     using provided: [String: JSONValue],
-    config:         TemplaterTemplateConfiguration,
-    syntax:         PlaceholderSyntax
+    config:         Surfaces.TemplaterTemplateConfiguration,
+    syntax:         plate.PlaceholderSyntax
 ) throws -> StringTemplateReplacement {
     // 1a) appointments array
     guard case let .array(rawArr)? = provided["appointments"] else {
@@ -24,11 +24,10 @@ public func renderAppointments(
         throw TemplaterDynamicRenderingError.missingProvidedValue(name: "navigation")
     }
     let navData  = try JSONEncoder().encode(JSONValue.object(navObj))
-    let navModel = try JSONDecoder()
-                     .decode(HTMLAppointmentNavigationInstructions.self, from: navData)
+    let navModel = try JSONDecoder().decode(Surfaces.HTMLAppointmentNavigationInstructions.self, from: navData)
 
     // 1d) build the nodes and render to HTML
-    let nodes    = htmlAppointmentsNodes(
+    let nodes    = Surfaces.htmlAppointmentsNodes(
         navigation:      navModel,
         appointments:    appts,
         requestCarPlate: requestCarPlate
@@ -36,7 +35,7 @@ public func renderAppointments(
     let html = nodes.map { $0.render() }.joined()
 
     // 1e) wrap in a replacement
-    return StringTemplateReplacement(
+    return plate.StringTemplateReplacement(
         placeholders:     [syntax.set(for: placeholder)],
         replacement:      html,
         initializer:      .manual,
