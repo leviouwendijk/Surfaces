@@ -1,6 +1,6 @@
 import Foundation
 
-public enum CaptcherThresholdMetric: Sendable, Codable, CaseIterable {
+public enum CaptcherThresholdMetric: String, RawRepresentable, Sendable, Codable, CaseIterable {
     case time_spent
     case mouse_movements
     case scroll_events
