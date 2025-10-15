@@ -18,7 +18,7 @@ public struct CaptcherMetricEvaluation: Sendable, Codable {
     public let threshold: Int 
 }
 
-public struct CaptcherMetrics: Sendable {
+public struct CaptcherMetrics: Sendable, Codable {
     public let timeSpent: Int
     public let mouseMovements: Int
     public let scrollEvents: Int
