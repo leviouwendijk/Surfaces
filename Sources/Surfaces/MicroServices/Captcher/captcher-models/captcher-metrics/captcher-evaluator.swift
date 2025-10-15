@@ -19,14 +19,24 @@ public struct CaptcherRiskEvaluator: Sendable {
             out.append(.init(signal: .time_spent_ms, contributed: delta, observed: "\(m.timeSpent)ms (min \(p.timeSpentMsMin))"))
         }
 
-        // mouse_movements (skip requirement under reduced motion if configured)
+        // mouse_movements: relax requirement under reduced motion, but don't award credit for 0-min
         do {
-            let effectiveMin = (p.skipMotionWhenReduced && m.prefersReducedMotion) ? 0 : p.minMouseMoves
-            let ok = m.mouseMovements >= effectiveMin
-            let delta = ok ? p.weightMoves : 0
-            score += delta
-            out.append(.init(signal: .mouse_movements, contributed: delta, observed: "\(m.mouseMovements) (min \(effectiveMin))"))
-            if p.skipMotionWhenReduced && m.prefersReducedMotion { notes.append("reduced-motion: true (movement min relaxed)") }
+            let reqMin = p.minMouseMoves
+            let requiredMin = (p.skipMotionWhenReduced && m.prefersReducedMotion) ? 0 : reqMin
+
+            // Credit only if real movement meets the original requirement, not the relaxed 0
+            let credit = (reqMin > 0 && m.mouseMovements >= reqMin) ? p.weightMoves : 0
+            score += credit
+
+            out.append(.init(
+                signal: .mouse_movements,
+                contributed: credit,
+                observed: "\(m.mouseMovements) (req \(requiredMin), credit if ≥\(reqMin))"
+            ))
+
+            if p.skipMotionWhenReduced && m.prefersReducedMotion && m.mouseMovements < reqMin {
+                notes.append("reduced-motion: true (movement requirement relaxed, no bonus credit)")
+            }
         }
 
         // scroll_events
@@ -37,28 +47,37 @@ public struct CaptcherRiskEvaluator: Sendable {
             out.append(.init(signal: .scroll_events, contributed: delta, observed: "\(m.scrollEvents) (min \(p.minScrollEvents))"))
         }
 
-        // keypresses OR focus_events
+        // keypresses OR focus_events: award the credit once, show it on the dominant signal
         do {
             let keyOrFocus = max(m.keypresses, m.focusEvents)
             let ok = keyOrFocus >= p.minKeyOrFocus
             let delta = ok ? p.weightKeyOrFocus : 0
             score += delta
-            out.append(.init(signal: .keypresses, contributed: 0, observed: "\(m.keypresses)"))
-            out.append(.init(signal: .focus_events, contributed: 0, observed: "\(m.focusEvents)"))
-            out.append(.init(signal: .visibility_stayed, contributed: 0, observed: "")) // placeholder to keep shape stable
-            // record aggregated “credit”
-            out.append(.init(signal: .visibility_stayed, contributed: 0, observed: "")) // will fill below
-            // We'll actually add visibility separately below; keeping structure explicit
-            // Replace previous two no-op rows with a single combined contribution if you prefer.
-            score += 0 // (handled via delta above)
+
+            // attribute credit to whichever had the higher count (tie → keypresses)
+            let creditToKey = (m.keypresses >= m.focusEvents)
+            out.append(.init(
+                signal: .keypresses,
+                contributed: creditToKey ? delta : 0,
+                observed: "\(m.keypresses) (min \(p.minKeyOrFocus))"
+            ))
+            out.append(.init(
+                signal: .focus_events,
+                contributed: creditToKey ? 0 : delta,
+                observed: "\(m.focusEvents) (min \(p.minKeyOrFocus))"
+            ))
         }
 
-        // visibility_stayed
+        // visibility_stayed: single row only
         do {
             let ok = m.visibilityStayed
             let delta = ok ? p.weightVisibilityStayed : 0
             score += delta
-            out.append(.init(signal: .visibility_stayed, contributed: delta, observed: "\(m.visibilityStayed)"))
+            out.append(.init(
+                signal: .visibility_stayed,
+                contributed: delta,
+                observed: "\(m.visibilityStayed)"
+            ))
         }
 
         // pointer_types_count
