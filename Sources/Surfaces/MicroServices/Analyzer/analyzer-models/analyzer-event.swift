@@ -1,7 +1,18 @@
 import Foundation
 
 public enum AnalyzerEventType: String, Codable, Sendable {
-    case pageview, engaged_time, heat_click, form_start, form_step_view, form_validation_error, form_submit, env, cta_click, address_lookup
+    case pageview
+    case engaged_time
+    case heat_click
+    case form_start
+    case form_step_view
+    case form_validation_error
+    case form_submit
+    case form_step_next
+    case form_step_back
+    case env
+    case cta_click
+    case address_lookup
 }
 
 public struct AnalyzerEventDTO: Codable, Sendable {
