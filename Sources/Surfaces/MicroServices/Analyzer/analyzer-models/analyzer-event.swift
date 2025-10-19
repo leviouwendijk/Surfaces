@@ -17,6 +17,10 @@ public enum AnalyzerEventType: String, Codable, Sendable {
 
 public struct AnalyzerEventDTO: Codable, Sendable {
     public let type: AnalyzerEventType
+    
+    // public var domain: String?     // e.g. "hondenmeesters.nl"
+    public var subdomain: String?  // e.g. "docs" or "root"
+    public var location: String?   // e.g. "/contact" (path only, no query/fragment)
 
     // optional fields (present depending on type)
     public var url: String?
