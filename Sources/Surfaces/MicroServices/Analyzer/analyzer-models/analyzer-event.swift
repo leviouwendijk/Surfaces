@@ -22,6 +22,11 @@ public struct AnalyzerEventDTO: Codable, Sendable {
     public var subdomain: String?  // e.g. "docs" or "root"
     public var location: String?   // e.g. "/contact" (path only, no query/fragment)
 
+    public var src: String?        // acquisition: source
+    public var med: String?        // acquisition: medium
+    public var campaign: String?   // acquisition: campaign
+    public var landing_path: String? // first landing path for the session
+
     // optional fields (present depending on type)
     public var url: String?
     public var ref: String?
