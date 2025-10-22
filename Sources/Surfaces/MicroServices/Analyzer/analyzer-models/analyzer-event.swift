@@ -8,6 +8,9 @@ public enum AnalyzerEventType: String, Codable, Sendable {
     case form_step_view
     case form_validation_error
     case form_submit
+    case form_submit_attempt
+    case form_submit_success
+    case form_submit_failure
     case form_step_next
     case form_step_back
     case env
