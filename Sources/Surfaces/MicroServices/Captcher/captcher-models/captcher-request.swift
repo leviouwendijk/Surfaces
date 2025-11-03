@@ -27,9 +27,9 @@ public struct CaptcherRequest: Codable, Sendable {
 
 
 extension CaptcherRequest {
-    public func datamanRequest() throws -> DatamanRequest {
+    public func datamanRequest() async throws -> DatamanRequest {
         let table = "captcha_tokens"
-        let fieldTypes = try PSQLFieldTypeRegistry.table(named: table)
+        let fieldTypes = try await PSQLFieldTypeRegistry.shared.table(named: table)
 
         switch operation {
         case .fetch:
