@@ -1,5 +1,6 @@
 import Foundation
 import Structures
+import Constructors
 import Extensions
 
 public struct DatamanRequest: Codable, Sendable {

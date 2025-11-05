@@ -1,6 +1,7 @@
 import Foundation
 import plate
 import Structures
+import Constructors
 import CryptoKit
 
 public struct CaptcherRequest: Codable, Sendable {
@@ -29,7 +30,7 @@ public struct CaptcherRequest: Codable, Sendable {
 extension CaptcherRequest {
     public func datamanRequest() async throws -> DatamanRequest {
         let table = "captcha_tokens"
-        let fieldTypes = try await PSQLFieldTypeRegistry.shared.table(named: table)
+        let fieldTypes = try await Constructors.PSQLFieldTypeRegistry.shared.table(named: table)
 
         switch operation {
         case .fetch:
