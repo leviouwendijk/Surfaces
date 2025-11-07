@@ -1,5 +1,5 @@
-import Foundation
 import Structures
+import Constructors
 
 public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
     public static func fetch(
@@ -13,7 +13,7 @@ public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
             table:     D.table,
             criteria:  criteria,
             values:    nil,
-            fieldTypes: try await D.fieldTypes(),
+            fieldTypes: try D.psqlTypes(),
             order:     order,
             limit:     limit
         )
@@ -26,18 +26,21 @@ public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
             table:     D.table,
             criteria:  nil,
             values:    .object(values),
-            fieldTypes: try await D.fieldTypes()
+            fieldTypes: try D.psqlTypes()
         )
     }
 
-    public static func update(criteria: JSONValue, values: [String: JSONValue]) async throws -> DatamanRequest {
+    public static func update(
+        criteria: JSONValue,
+        values: [String: JSONValue]
+    ) async throws -> DatamanRequest {
         DatamanRequest(
             operation: .update,
             database:  D.database,
             table:     D.table,
             criteria:  criteria,
             values:    .object(values),
-            fieldTypes: try await D.fieldTypes()
+            fieldTypes: try D.psqlTypes()
         )
     }
 
@@ -48,7 +51,7 @@ public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
             table:     D.table,
             criteria:  criteria,
             values:    nil,
-            fieldTypes: try await D.fieldTypes()
+            fieldTypes: try D.psqlTypes()
         )
     }
 }

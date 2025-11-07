@@ -16,7 +16,7 @@
       "location" : "https://github.com/leviouwendijk/Constructors.git",
       "state" : {
         "branch" : "master",
-        "revision" : "1f6489129d8ba61b6f6d312f646c963858c076c4"
+        "revision" : "b305b694cc72c12f78e7d3e8080ff71fde2e1f80"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/leviouwendijk/Interfaces.git",
       "state" : {
         "branch" : "master",
-        "revision" : "613f6a605619abee9197335c97698de405142d7b"
+        "revision" : "d2cfc21ee474562a6ce8f212258d00926efbfb9c"
       }
     },
     {
@@ -52,7 +52,7 @@
       "location" : "https://github.com/leviouwendijk/plate.git",
       "state" : {
         "branch" : "master",
-        "revision" : "5241d0b9aeb573e40f5c3eccbeb6a6e604089937"
+        "revision" : "ea87746b3f62169a132451d0abdff7bfa0bab956"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/leviouwendijk/Structures.git",
       "state" : {
         "branch" : "master",
-        "revision" : "4cd56a2275821871db6faad510fe688ae1103df7"
+        "revision" : "73223257c9055cf49b516a17bb2e45ff7f2f170d"
       }
     }
   ],
