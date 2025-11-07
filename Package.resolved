@@ -16,7 +16,7 @@
       "location" : "https://github.com/leviouwendijk/Constructors.git",
       "state" : {
         "branch" : "master",
-        "revision" : "b305b694cc72c12f78e7d3e8080ff71fde2e1f80"
+        "revision" : "6bc3f61249247a94c09123ca829eda81701ce1ab"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/leviouwendijk/Structures.git",
       "state" : {
         "branch" : "master",
-        "revision" : "73223257c9055cf49b516a17bb2e45ff7f2f170d"
+        "revision" : "19b0de73ee7cdedf6f6b2641716cb239527034de"
       }
     }
   ],
