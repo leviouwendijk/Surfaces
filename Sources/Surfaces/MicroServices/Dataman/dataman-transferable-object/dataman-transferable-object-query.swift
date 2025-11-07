@@ -19,30 +19,17 @@ public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
         )
     }
 
-    // public static func create(values: [String: JSONValue]) async throws -> DatamanRequest {
-    //     DatamanRequest(
-    //         operation: .create,
-    //         database:  D.database,
-    //         table:     D.table,
-    //         criteria:  nil,
-    //         values:    .object(values),
-    //         fieldTypes: try D.psqlTypes()
-    //     )
-    // }
+    public static func create(values: [String: JSONValue]) async throws -> DatamanRequest {
+        DatamanRequest(
+            operation: .create,
+            database:  D.database,
+            table:     D.table,
+            criteria:  nil,
+            values:    .object(values),
+            fieldTypes: try D.psqlTypes()
+        )
+    }
 
-    // public static func update(
-    //     criteria: JSONValue,
-    //     values: [String: JSONValue]
-    // ) async throws -> DatamanRequest {
-    //     DatamanRequest(
-    //         operation: .update,
-    //         database:  D.database,
-    //         table:     D.table,
-    //         criteria:  criteria,
-    //         values:    .object(values),
-    //         fieldTypes: try D.psqlTypes()
-    //     )
-    // }
 
     public static func create(_ payload: D.CreatePayload) async throws -> DatamanRequest {
         let values = try D.encodeCreatePayload(payload)
@@ -55,6 +42,20 @@ public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
             fieldTypes: try D.psqlTypes(),
             order:     nil,
             limit:     nil
+        )
+    }
+
+    public static func update(
+        criteria: JSONValue,
+        values: [String: JSONValue]
+    ) async throws -> DatamanRequest {
+        DatamanRequest(
+            operation: .update,
+            database:  D.database,
+            table:     D.table,
+            criteria:  criteria,
+            values:    .object(values),
+            fieldTypes: try D.psqlTypes()
         )
     }
 
