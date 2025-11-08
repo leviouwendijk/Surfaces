@@ -31,7 +31,7 @@ public extension DatamanTransferableObject {
     }
 
     /// Default coding preset: snake_case + ISO8601
-    static var coding: DatamanCoding { DatamanCodingPresets.snakeISO8601() }
+    static var coding: DatamanCoding { DatamanCodingPresets.rawISO8601() }
 
     static func decodeRow(from j: JSONValue) throws -> Row {
         try coding.decoder.decode(Row.self, from: JSONEncoder().encode(j))
