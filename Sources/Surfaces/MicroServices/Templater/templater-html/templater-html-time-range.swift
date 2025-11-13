@@ -38,6 +38,8 @@ public func htmlTimeRangeNodes(
             label = day.dutch
         case .english:
             label = day.english
+        default:
+            label = "<unsupported language error>"
         }
 
         // let children = Interfaces.HTMLBuilder.buildBlock(
