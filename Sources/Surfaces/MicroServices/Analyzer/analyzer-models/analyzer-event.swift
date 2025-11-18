@@ -16,6 +16,10 @@ public enum AnalyzerEventType: String, Codable, Sendable {
     case env
     case cta_click
     case address_lookup
+
+    case form_consent_blocked
+    case captcha_init
+    case captcha_validate
 }
 
 public struct AnalyzerEventDTO: Codable, Sendable {
