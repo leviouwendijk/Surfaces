@@ -1,5 +1,6 @@
 import Foundation
-import Structures
+// import Structures
+import Primitives
 import Constructors
 
 public protocol DatamanTransferableObject {

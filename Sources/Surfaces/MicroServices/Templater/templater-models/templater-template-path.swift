@@ -1,5 +1,5 @@
 import Foundation
-import Structures
+import Primitives
 import plate
 
 public enum TemplaterSection: String, RawRepresentable, Codable, Sendable {

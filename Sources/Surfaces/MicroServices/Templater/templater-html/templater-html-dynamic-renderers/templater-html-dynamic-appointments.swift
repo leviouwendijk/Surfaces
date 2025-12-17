@@ -3,6 +3,7 @@ import plate
 import Structures
 import Interfaces
 import Constructors
+import Primitives
 
 public func renderAppointments(
     placeholder:    String,

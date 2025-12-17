@@ -1,5 +1,6 @@
 import Foundation
-import Extensions
+// import Extensions
+import plate
 
 public enum CaptcherOperation: String, Codable, Sendable, StringParsableEnum {
     case fetch

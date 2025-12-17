@@ -1,6 +1,5 @@
 import Foundation
-import Structures
-import Extensions
+import Primitives
 
 public struct DatamanResponse: Codable, Sendable {
     public let success: Bool

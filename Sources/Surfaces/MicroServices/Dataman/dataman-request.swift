@@ -1,7 +1,6 @@
 import Foundation
-import Structures
+import Primitives
 import Constructors
-import Extensions
 
 public struct DatamanRequest: Codable, Sendable {
     public let operation: DatamanOperation

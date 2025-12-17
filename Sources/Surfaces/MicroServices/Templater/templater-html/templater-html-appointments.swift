@@ -1,7 +1,7 @@
 import Foundation
 import plate
 import Structures
-import Interfaces
+// import Interfaces
 import Constructors
 
 public struct AppointmentLocationData {

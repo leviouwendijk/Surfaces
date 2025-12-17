@@ -2,6 +2,7 @@ import Foundation
 import plate
 import Structures
 import Interfaces
+import Primitives
 
 public func renderLabel(
     placeholder:    String,

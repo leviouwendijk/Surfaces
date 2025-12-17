@@ -1,5 +1,6 @@
 import Foundation
-import Extensions
+// import Extensions
+import plate
 
 public enum CaptcherTokenType: String, Codable, Sendable, StringParsableEnum {
     case new

@@ -42,6 +42,10 @@ let package = Package(
         //     url: "https://github.com/vapor/postgres-nio.git", 
         //     from: "1.12.0"
         // ),
+        .package(
+            url: "https://github.com/leviouwendijk/Primitives.git",
+            branch: "master"
+        ),
     ],
     targets: [
         .target(
@@ -53,6 +57,7 @@ let package = Package(
                 .product(name: "Interfaces", package: "Interfaces"),
                 .product(name: "Commerce", package: "Commerce"),
                 .product(name: "Constructors", package: "Constructors"),
+                .product(name: "Primitives", package: "Primitives"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
             ],
             resources: [
@@ -69,6 +74,7 @@ let package = Package(
                 .product(name: "Interfaces", package: "Interfaces"),
                 .product(name: "Commerce", package: "Commerce"),
                 .product(name: "Constructors", package: "Constructors"),
+                .product(name: "Primitives", package: "Primitives"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
             ]
         ),

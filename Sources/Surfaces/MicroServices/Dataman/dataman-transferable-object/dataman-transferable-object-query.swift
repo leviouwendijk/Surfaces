@@ -1,4 +1,5 @@
-import Structures
+import Primitives
+// import Structures
 import Constructors
 
 public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {

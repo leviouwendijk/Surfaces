@@ -1,6 +1,7 @@
 import Foundation
 import plate
-import Structures
+// import Structures
+import Primitives
 
 public enum TemplaterPlaceholderConstructor: String, Codable, Sendable {
     case appointments
