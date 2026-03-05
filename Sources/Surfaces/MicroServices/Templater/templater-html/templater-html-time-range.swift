@@ -2,7 +2,8 @@ import Foundation
 import plate
 import Structures
 import Interfaces
-import Constructors
+// import Constructors
+import HTML
 
 public struct HTMLTimeRange: Sendable, Codable {
     public let start: String
@@ -23,7 +24,7 @@ public func htmlTimeRangeNodes(
 // ) -> [Interfaces.HTMLNode] {
 ) -> HTMLFragment {
     // return MailerAPIWeekday.allCases.compactMap { day -> Interfaces.HTMLNode? in
-    return MailerAPIWeekday.allCases.compactMap { day -> (any Constructors.HTMLNode)? in
+    return MailerAPIWeekday.allCases.compactMap { day -> (any HTMLNode)? in
         guard let maybeRange = availability[day],
               let range      = maybeRange,
               !range.start.isEmpty,

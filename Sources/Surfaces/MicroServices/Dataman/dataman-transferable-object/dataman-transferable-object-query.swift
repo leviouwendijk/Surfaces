@@ -1,6 +1,7 @@
 import Primitives
 // import Structures
 import Constructors
+import PSQL
 
 public enum DatamanTransferableObjectQuery<D: DatamanTransferableObject> {
     public static func fetch(

@@ -2,7 +2,8 @@ import Foundation
 import plate
 import Structures
 import Interfaces
-import Constructors
+// import Constructors
+import HTML
 
 public struct HTMLAppointmentNavigationInstructions: Codable, Sendable {
     public let intro:    String
@@ -55,7 +56,7 @@ public func htmlNavigationInstructionsNodes(
     //     children: [ Interfaces.HTMLNode(text: HTMLStandardAssets.navigationIcon) ]
     // )
 
-    let iconNode: any Constructors.HTMLNode = HTML.div(.class(["nav-instructions__icon"])) {
+    let iconNode: any HTMLNode = HTML.div(.class(["nav-instructions__icon"])) {
         HTML.raw(HTMLStandardAssets.navigationIcon)
     }
 
@@ -65,7 +66,7 @@ public func htmlNavigationInstructionsNodes(
     //     children: [ Interfaces.HTMLNode(text: navigation.intro) ]
     // )
 
-    let introNode: any Constructors.HTMLNode = HTML.p(.class(["nav-instructions__intro"])) { navigation.intro }
+    let introNode: any HTMLNode = HTML.p(.class(["nav-instructions__intro"])) { navigation.intro }
 
     // var addressNodes: [Interfaces.HTMLNode] = []
     // addressNodes.append(
@@ -87,7 +88,7 @@ public func htmlNavigationInstructionsNodes(
     //     children: [ Interfaces.HTMLNode(text: navigation.detail) ]
     // )
 
-    let detailNode: any Constructors.HTMLNode = HTML.p(.class(["nav-instructions__detail"])) { navigation.detail }
+    let detailNode: any HTMLNode = HTML.p(.class(["nav-instructions__detail"])) { navigation.detail }
 
     // var requestNodes: [Interfaces.HTMLNode] = []
     var requestNodes: HTMLFragment = []
@@ -109,7 +110,7 @@ public func htmlNavigationInstructionsNodes(
     //     children: [introNode]  addressNodes + [detailNode] + requestNodes
     // )
 
-    let innerDiv: any Constructors.HTMLNode = HTML.div {
+    let innerDiv: any HTMLNode = HTML.div {
         introNode
         addressNodes
         detailNode
@@ -123,6 +124,6 @@ public func htmlNavigationInstructionsNodes(
     // )
 
     // return [root]
-    let root: any Constructors.HTMLNode = HTML.div(.class(["nav-instructions"])) { iconNode; innerDiv }
+    let root: any HTMLNode = HTML.div(.class(["nav-instructions"])) { iconNode; innerDiv }
     return [root] as HTMLFragment
 }

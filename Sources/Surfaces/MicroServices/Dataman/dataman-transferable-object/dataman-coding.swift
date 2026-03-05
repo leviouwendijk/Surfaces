@@ -1,6 +1,7 @@
 import Foundation
 // import Structures
 import Primitives
+import PSQL
 
 public struct DatamanCoding {
     public var encoder: JSONEncoder

@@ -46,6 +46,16 @@ let package = Package(
             url: "https://github.com/leviouwendijk/Primitives.git",
             branch: "master"
         ),
+
+        .package(
+            url: "https://github.com/leviouwendijk/HTML.git",
+            branch: "master"
+        ),
+
+        .package(
+            url: "https://github.com/leviouwendijk/PSQL.git",
+            branch: "master"
+        ),
     ],
     targets: [
         .target(
@@ -59,6 +69,8 @@ let package = Package(
                 .product(name: "Constructors", package: "Constructors"),
                 .product(name: "Primitives", package: "Primitives"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
+                .product(name: "HTML", package: "HTML"),
+                .product(name: "PSQL", package: "PSQL"),
             ],
             resources: [
                 .process("Resources")
@@ -76,6 +88,8 @@ let package = Package(
                 .product(name: "Constructors", package: "Constructors"),
                 .product(name: "Primitives", package: "Primitives"),
                 // .product(name: "PostgresNIO", package: "postgres-nio"),
+                .product(name: "HTML", package: "HTML"),
+                .product(name: "PSQL", package: "PSQL"),
             ]
         ),
     ]

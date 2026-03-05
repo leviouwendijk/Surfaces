@@ -1,8 +1,9 @@
 import Foundation
 import Structures
-import Interfaces
+// import Interfaces
 import plate
-import Constructors
+// import Constructors
+import HTML
 
 public func renderImageNode(
     placeholder:    String,
@@ -39,7 +40,7 @@ public func renderImageNode(
     if let w = imageSpec.specifications.width  { attrs.merge(["width":  "\(w)"]) }
     if let h = imageSpec.specifications.height { attrs.merge(["height": "\(h)"]) }
 
-    let node: any Constructors.HTMLNode = HTML.img(
+    let node: any HTMLNode = HTML.img(
         src: "data:\(mime);base64,\(b64)",
         alt: "",
         attrs

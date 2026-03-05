@@ -2,6 +2,7 @@ import Foundation
 // import Structures
 import Primitives
 import Constructors
+import PSQL
 
 public protocol DatamanTransferableObject {
     associatedtype Row: Decodable & Sendable

@@ -1,6 +1,7 @@
 import Foundation
 import Primitives
 import Constructors
+import PSQL
 
 public struct DatamanRequest: Codable, Sendable {
     public let operation: DatamanOperation

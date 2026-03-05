@@ -1,8 +1,9 @@
 import Foundation
 import plate
 import Structures
-// import Interfaces
+import Interfaces
 import Constructors
+import HTML
 
 public struct AppointmentLocationData {
     public let address: String
@@ -31,10 +32,10 @@ public func htmlAppointmentsNodes(
     appointments:     [MailerAPIAppointmentContent],
     requestCarPlate:  Bool = false
 // ) -> [Interfaces.HTMLNode] {
-) -> Constructors.HTMLFragment {
+) -> HTMLFragment {
     guard !appointments.isEmpty else { return [] }
 
-    var nodes: [Constructors.HTMLNode] = []
+    var nodes: [HTMLNode] = []
 
     if htmlHasLocalSession(appointments: appointments) {
         let first = appointments[0]
@@ -94,16 +95,16 @@ public func htmlAppointmentsNodes(
         //     children: [container]
         // )
 
-        let topText: any Constructors.HTMLNode = HTML.p(.class(["appointment-box-text"])) {
+        let topText: any HTMLNode = HTML.p(.class(["appointment-box-text"])) {
             "\(appt.date)"; HTML.br(); "\(appt.day)"; HTML.br(); "\(appt.time)"
         }
-        let bottomText: any Constructors.HTMLNode = HTML.p(.class(["appointment-box-text-bottom"])) {
+        let bottomText: any HTMLNode = HTML.p(.class(["appointment-box-text-bottom"])) {
             "\(appt.location)"; HTML.br(); "\(loc.address)"; HTML.br(); "\(loc.area)"
         }
-        let container: any Constructors.HTMLNode = HTML.div(.class(["appointment-box-container"])) {
+        let container: any HTMLNode = HTML.div(.class(["appointment-box-container"])) {
             topText; bottomText
         }
-        let box: any Constructors.HTMLNode = HTML.div(.class(["appointment-box"])) { container }
+        let box: any HTMLNode = HTML.div(.class(["appointment-box"])) { container }
 
         nodes.append(box)
     }

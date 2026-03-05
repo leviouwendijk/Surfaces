@@ -4,6 +4,7 @@ import Commerce
 import Structures
 import Interfaces
 import Constructors
+import HTML
 
 // public func htmlInvoiceNodes(from data: InvoiceData) -> [Interfaces.HTMLNode] {
 public func htmlInvoiceNodes(from data: InvoiceData) -> HTMLFragment {
@@ -26,7 +27,7 @@ public func htmlInvoiceNodes(from data: InvoiceData) -> HTMLFragment {
     //     Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "BTW bedrag") ]),
     //     Interfaces.HTMLNode(tag: "th", children: [ Interfaces.HTMLNode(text: "Bedrag incl. BTW") ]),
     // ])
-    let headerRow: any Constructors.HTMLNode = HTML.tr {
+    let headerRow: any HTMLNode = HTML.tr {
         HTML.th { "Omschrijving" }
         HTML.th { "Aantal" }
         HTML.th { "Eenheidsprijs" }
@@ -98,7 +99,7 @@ public func htmlInvoiceNodes(from data: InvoiceData) -> HTMLFragment {
     //     ]
     // )
     // lineRows.append(summaryRow)
-    let summaryRow: any Constructors.HTMLNode = HTML.tr(.class(["table-subtotal-row"])) {
+    let summaryRow: any HTMLNode = HTML.tr(.class(["table-subtotal-row"])) {
         HTML.td(["colspan":"4", "class":"table-subtotal-label"]) { "Totaal" }
         HTML.td(.class(["table-subtotal-value"])) { String(format:"€%.2f", data.netTotal) }
         HTML.td(.class(["table-subtotal-value"])) { String(format:"€%.2f", data.vatTotal) }

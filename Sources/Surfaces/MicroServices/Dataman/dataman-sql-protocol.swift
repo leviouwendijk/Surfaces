@@ -1,5 +1,6 @@
 import Foundation
 import Constructors
+import PSQL
 
 public protocol DatamanSQLBuilding: Sendable {
     // func buildSelect(_ r: DatamanRequest) throws -> PSQL.RenderedSQL
