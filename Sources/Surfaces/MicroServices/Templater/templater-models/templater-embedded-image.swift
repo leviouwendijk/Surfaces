@@ -1,6 +1,7 @@
 import Foundation
 import plate
 import Extensions
+import Primitives
 
 public enum TemplaterImageWidthSettingError: Error, LocalizedError, Sendable {
     case noWidthAvailableForFile(String)
