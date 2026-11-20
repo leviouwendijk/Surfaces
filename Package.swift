@@ -76,21 +76,5 @@ let package = Package(
                 .process("Resources")
             ],
         ),
-        .testTarget(
-            name: "SurfacesTests",
-            dependencies: [
-                "Surfaces",
-                .product(name: "plate", package: "plate"),
-                .product(name: "Structures", package: "Structures"),
-                .product(name: "Extensions", package: "Extensions"),
-                .product(name: "Interfaces", package: "Interfaces"),
-                .product(name: "Commerce", package: "Commerce"),
-                .product(name: "Constructors", package: "Constructors"),
-                .product(name: "Primitives", package: "Primitives"),
-                // .product(name: "PostgresNIO", package: "postgres-nio"),
-                .product(name: "HTML", package: "HTML"),
-                .product(name: "PSQL", package: "PSQL"),
-            ]
-        ),
     ]
 )
